@@ -118,14 +118,16 @@ def tela_login():
                 else:
                     st.warning("Preencha todos os campos.")
 
-            # BOTÕES SECUNDÁRIOS DENTRO DO MESMO CARD (PADRONIZADOS)
+            # BOTÕES SECUNDÁRIOS DENTRO DO MESMO CARD
             st.markdown("<div style='margin-top: 10px;'></div>", unsafe_allow_html=True)
             col_b1, col_b2 = st.columns(2)
             with col_b1:
-                if st.button("Solicitar Cadastro", key="btn_solicitar_cad", use_container_width=True):
+                # Adicionado type="primary"
+                if st.button("Solicitar Cadastro", key="btn_solicitar_cad", use_container_width=True, type="primary"):
                     st.info("Fale com o comercial: (11) 99999-8888.")
             with col_b2:
-                if st.button("Esqueci a Senha", key="btn_esqueci_senha", use_container_width=True):
+                # Adicionado type="primary"
+                if st.button("Esqueci a Senha", key="btn_esqueci_senha", use_container_width=True, type="primary"):
                     st.info("Solicite o reset ao administrador da conta.")
 
 
