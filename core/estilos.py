@@ -2,13 +2,21 @@ import streamlit as st
 
 def aplicar_estilos_customizados():
     """
-    Injeta o CSS global da aplicação. 
-    Aqui nós matamos o vermelho padrão e o azul "cheguei", substituindo pelo Dark Slate corporativo.
+    Injeta o CSS global e sobrescreve as variáveis nativas do Streamlit 
+    para eliminar completamente o vermelho e o azul padrão.
     """
     st.markdown(
         """
         <style>
-            /* 1. MATA O VERMELHO DAS ABAS (TABS) E USA DARK SLATE */
+            /* Força as variáveis de sistema do Streamlit para Dark Slate */
+            :root {
+                --primary-color: #0F172A !important;
+                --text-color: #0F172A !important;
+                --background-color: #F8FAFC !important;
+                --secondary-background-color: #F1F5F9 !important;
+            }
+
+            /* Mata a linha e o destaque vermelho das abas (Tabs) */
             .stTabs [data-baseweb="tab-highlight"] {
                 background-color: #0F172A !important;
             }
@@ -20,28 +28,28 @@ def aplicar_estilos_customizados():
                 font-weight: 600 !important;
             }
 
-            /* 2. MATA O AZUL/VERMELHO DOS BOTÕES E USA DARK SLATE */
+            /* Força todos os botões primários do Streamlit a usarem Dark Slate */
+            button[kind="primary"], 
             .stFormSubmitButton > button[kind="primary"],
-            .stButton > button[kind="primary"] {
+            [data-testid="baseButton-primary"] {
                 background-color: #0F172A !important;
+                background: #0F172A !important;
                 color: #FFFFFF !important;
                 border: 1px solid #0F172A !important;
                 font-weight: 600 !important;
-                transition: all 0.3s ease;
             }
+            button[kind="primary"]:hover, 
             .stFormSubmitButton > button[kind="primary"]:hover,
-            .stButton > button[kind="primary"]:hover {
+            [data-testid="baseButton-primary"]:hover {
                 background-color: #1E293B !important;
-                border: 1px solid #1E293B !important;
+                background: #1E293B !important;
                 color: #FFFFFF !important;
             }
 
-            /* 3. Ajuste de fontes e inputs globais */
             input {
                 border-radius: 6px !important;
             }
             
-            /* Remove a margem superior indesejada em algumas telas */
             .block-container {
                 padding-top: 2.2rem !important;
             }
@@ -51,10 +59,7 @@ def aplicar_estilos_customizados():
     )
 
 def aplicar_fundo_login():
-    """
-    Aplica um fundo neutro, limpo e profissional para a tela de login, 
-    removendo qualquer fundo colorido forte que estivesse antes.
-    """
+    """Fundo neutro e limpo para a tela de login."""
     st.markdown(
         """
         <style>
@@ -67,10 +72,7 @@ def aplicar_fundo_login():
     )
 
 def renderizar_card_usuario(nome_empresa, usuario, setor):
-    """
-    Renderiza o cartão com os dados do usuário na barra lateral.
-    Visual Dark Slate, combinando com o novo padrão.
-    """
+    """Cartão do usuário na barra lateral padronizado."""
     st.markdown(
         f"""
         <div style="background-color: #0F172A; padding: 14px; border-radius: 8px; border: 1px solid #334155; margin-bottom: 24px;">
