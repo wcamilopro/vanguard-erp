@@ -11,7 +11,7 @@ from core.estilos import (
     renderizar_card_usuario,
 )
 
-# Favicon Oficial Vanguard (Cinza Grafite para destacar na aba do navegador)
+# Favicon Oficial Vanguard (Cinza Grafite para a aba do navegador)
 FAVICON_VANGUARD = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><path d='M20 4L36 32H27L20 18L13 32H4L20 4Z' fill='%231E40AF'/><path d='M20 18L26 32H21L20 29L19 32H14L20 18Z' fill='%23334155'/></svg>"
 
 st.set_page_config(
@@ -88,7 +88,7 @@ def tela_login():
                     <div style="font-size: 10px; font-weight: 700; color: #1E40AF; text-transform: uppercase; letter-spacing: 2px;">
                         SISTEMAS DE GESTÃO
                     </div>
-                    <div style="font-size: 12px; color: #64748B; margin-top: 6px; font-style: italic;">
+                    <div style="font-size: 12px; color: #475569; margin-top: 6px; font-style: italic;">
                         "Controle absoluto. Operação simples."
                     </div>
                 </div>
@@ -166,7 +166,7 @@ def main():
 
     # BARRA LATERAL
     with st.sidebar:
-        # CARD DE LOGO NO TOPO (Mantém branco para contraste no fundo escuro da sidebar)
+        # CARD DE LOGO NO TOPO (Mantém branco pois o fundo da sidebar é escuro)
         st.markdown(
             """
             <div style="background-color: #1E293B; padding: 12px; border-radius: 8px; border: 1px solid #334155; margin-bottom: 16px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
