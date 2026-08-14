@@ -2,13 +2,26 @@ import streamlit as st
 
 def aplicar_estilos_customizados():
     """
-    Injeta o CSS global com o Azul Corporativo Sóbrio (#1E40AF), 
-    mantendo a interface limpa, profissional e leve.
+    Injeta o CSS global ajustando a barra lateral (sidebar) para um tom escuro 
+    elegante e corrigindo o espaçamento dos componentes.
     """
     st.markdown(
         """
         <style>
-            /* Variáveis e destaque das abas (Tabs) */
+            /* ESCURECE A BARRA LATERAL (SIDEBAR) EM UM TOM SÓBRIO CORPORATIVO */
+            [data-testid="stSidebar"] {
+                background-color: #0B1120 !important;
+                border-right: 1px solid #1E293B !important;
+            }
+
+            /* Garante que os textos e elementos da sidebar fiquem legíveis */
+            [data-testid="stSidebar"] p, 
+            [data-testid="stSidebar"] span, 
+            [data-testid="stSidebar"] label {
+                color: #F8FAFC !important;
+            }
+
+            /* Ajuste das abas (Tabs) */
             .stTabs [data-baseweb="tab-highlight"] {
                 background-color: #1E40AF !important;
             }
@@ -20,7 +33,7 @@ def aplicar_estilos_customizados():
                 font-weight: 600 !important;
             }
 
-            /* Botões primários com Azul Corporativo Equilibrado */
+            /* Botões primários */
             button[kind="primary"], 
             .stFormSubmitButton > button[kind="primary"],
             [data-testid="baseButton-primary"] {
@@ -65,16 +78,18 @@ def aplicar_fundo_login():
     )
 
 def renderizar_card_usuario(nome_empresa, usuario, setor):
-    """Cartão do usuário na barra lateral harmonizado."""
+    """
+    Renderiza o cartão do usuário perfeitamente ajustado para o fundo escuro da barra lateral.
+    """
     st.markdown(
         f"""
-        <div style="background-color: #0F172A; padding: 14px; border-radius: 8px; border: 1px solid #334155; margin-bottom: 24px;">
+        <div style="background-color: #1E293B; padding: 14px; border-radius: 8px; border: 1px solid #334155; margin-bottom: 20px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
             <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
                 <div style="background-color: #1E40AF; color: white; width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px;">
                     {str(nome_empresa)[0].upper()}
                 </div>
-                <div>
-                    <div style="color: #F8FAFC; font-weight: 700; font-size: 13px; line-height: 1.2;">
+                <div style="overflow: hidden;">
+                    <div style="color: #F8FAFC; font-weight: 700; font-size: 13px; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                         {nome_empresa}
                     </div>
                     <div style="color: #94A3B8; font-size: 11px; margin-top: 2px;">
@@ -82,9 +97,9 @@ def renderizar_card_usuario(nome_empresa, usuario, setor):
                     </div>
                 </div>
             </div>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; padding-top: 8px; border-top: 1px solid #1E293B;">
-                <span style="color: #64748B; font-size: 10px;">Setor:</span>
-                <span style="background-color: #1E293B; color: #E2E8F0; font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 600;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px; padding-top: 8px; border-top: 1px solid #334155;">
+                <span style="color: #94A3B8; font-size: 10px;">Setor:</span>
+                <span style="background-color: #0F172A; color: #E2E8F0; font-size: 10px; padding: 2px 8px; border-radius: 4px; font-weight: 600;">
                     {setor}
                 </span>
             </div>
