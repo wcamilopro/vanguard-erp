@@ -6,7 +6,7 @@ base = "dark"
 primaryColor = "#2563EB"
 
 # Fundo geral da tela (Cinza e moderno)
-backgroundColor = "#E5E7EB"
+backgroundColor = "#D1D5DB"
 
 # Fundo da barra lateral e dos campos de texto (Cinza-azulado discreto e elegante)
 secondaryBackgroundColor = "#1E293B"
