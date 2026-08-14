@@ -68,18 +68,17 @@ def tela_login():
     """Tela de Login Corporativa Vanguard (Card destacado com botões padronizados)."""
     aplicar_fundo_login()
 
-    # CSS personalizado para controlar especificamente o fundo do Card de Login
+    # CSS exclusivo para o card de login
     st.markdown(
         """
         <style>
-        /* Alvo: O container do card de login central */
-        div[data-testid="column"] div[data-testid="stVerticalBlock"] {
-            background-color: #FFFFFF; /* Altere aqui o código da cor do card de login */
-            padding: 24px;
-            border-radius: 12px;
-            border: 1px solid #CBD5E1;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
+            .card-login {
+                background-color: #FFFFFF !important;
+                padding: 24px !important;
+                border-radius: 12px !important;
+                border: 1px solid #CBD5E1 !important;
+                box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1) !important;
+            }
         </style>
         """,
         unsafe_allow_html=True,
@@ -89,8 +88,11 @@ def tela_login():
 
     with col_centro:
         st.markdown("<br>", unsafe_allow_html=True)
+
         with st.container():
-            # LOGOTIPO PADRONIZADO (Azul em cima e Cinza Claro em baixo)
+            st.markdown("<div class='card-login'>", unsafe_allow_html=True)
+
+            # LOGOTIPO PADRONIZADO
             st.markdown(
                 """
                 <div style="text-align: center; margin-bottom: 20px;">
@@ -116,7 +118,7 @@ def tela_login():
 
             usuario_input = st.text_input("Usuário / Login", key="login_usuario")
             senha_input = st.text_input("Senha", type="password", key="login_senha")
-            
+
             st.markdown("<div style='margin-top: 10px;'></div>", unsafe_allow_html=True)
             submit = st.button("Entrar no Sistema", use_container_width=True, type="primary", key="btn_entrar_sistema")
 
@@ -135,8 +137,8 @@ def tela_login():
                 else:
                     st.warning("Preencha todos os campos.")
 
-            # BOTÕES SECUNDÁRIOS DENTRO DO MESMO CARD
             st.markdown("<div style='margin-top: 10px;'></div>", unsafe_allow_html=True)
+
             col_b1, col_b2 = st.columns(2)
             with col_b1:
                 if st.button("Solicitar Cadastro", key="btn_solicitar_cad", use_container_width=True, type="primary"):
@@ -144,6 +146,8 @@ def tela_login():
             with col_b2:
                 if st.button("Esqueci a Senha", key="btn_esqueci_senha", use_container_width=True, type="primary"):
                     st.info("Solicite o reset ao administrador da conta.")
+
+            st.markdown("</div>", unsafe_allow_html=True)
 
 
 def main():
