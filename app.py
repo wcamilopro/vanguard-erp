@@ -65,7 +65,7 @@ def modal_primeiro_acesso(username):
 
 
 def tela_login():
-    """Tela de Login Corporativa Vanguard (Tudo unificado no card central)."""
+    """Tela de Login Corporativa Vanguard (100% unificada dentro do card)."""
     aplicar_fundo_login()
 
     _, col_centro, _ = st.columns([1, 1.1, 1])
@@ -97,25 +97,26 @@ def tela_login():
                 unsafe_allow_html=True,
             )
 
-            with st.form("form_login"):
-                usuario_input = st.text_input("Usuário / Login")
-                senha_input = st.text_input("Senha", type="password")
-                submit = st.form_submit_button("Entrar no Sistema", use_container_width=True, type="primary")
+            usuario_input = st.text_input("Usuário / Login", key="login_usuario")
+            senha_input = st.text_input("Senha", type="password", key="login_senha")
+            
+            st.markdown("<div style='margin-top: 10px;'></div>", unsafe_allow_html=True)
+            submit = st.button("Entrar no Sistema", use_container_width=True, type="primary", key="btn_entrar_sistema")
 
-                if submit:
-                    if usuario_input and senha_input:
-                        res = autenticar_usuario(usuario_input, senha_input)
+            if submit:
+                if usuario_input and senha_input:
+                    res = autenticar_usuario(usuario_input, senha_input)
 
-                        if res == "BLOQUEADO":
-                            st.error("🚫 Acesso Suspenso. Entre em contato com o suporte financeiro.")
-                        elif res:
-                            st.session_state["usuario_logado"] = res
-                            st.session_state["modulo_ativo"] = "Boas-vindas"
-                            reexecutar()
-                        else:
-                            st.error("Usuário ou senha incorretos.")
+                    if res == "BLOQUEADO":
+                        st.error("🚫 Acesso Suspenso. Entre em contato com o suporte financeiro.")
+                    elif res:
+                        st.session_state["usuario_logado"] = res
+                        st.session_state["modulo_ativo"] = "Boas-vindas"
+                        reexecutar()
                     else:
-                        st.warning("Preencha todos os campos.")
+                        st.error("Usuário ou senha incorretos.")
+                else:
+                    st.warning("Preencha todos os campos.")
 
             # BOTÕES SECUNDÁRIOS DENTRO DO MESMO CARD
             st.markdown("<div style='margin-top: 10px;'></div>", unsafe_allow_html=True)
