@@ -9,7 +9,7 @@ primaryColor = "#1E40AF"
 backgroundColor = "#FF1493" #050810"(cinza escuro) 
 
 # Fundo dos Cards e do Menu Lateral (Azul Acinzentado)
-secondaryBackgroundColor = "#1E293B"
+secondaryBackgroundColor = "#FFFF00" #1E293B"(cinza dos cards internos) 
 
 # Cor do Texto
 textColor = "#F8FAFC"
