@@ -24,7 +24,7 @@ st.set_page_config(
 # Inicializa o Banco de Dados com segurança
 init_db()
 
-# Inicialização limpa do Session State para evitar loops
+# Inicialização limpa do Session State
 if "usuario_logado" not in st.session_state:
     st.session_state["usuario_logado"] = None
 
@@ -166,19 +166,20 @@ def main():
 
     # BARRA LATERAL
     with st.sidebar:
+        # CARD DE LOGO NO TOPO (TOM UM POUCO MAIS CLARO QUE O FUNDO DA SIDEBAR)
         st.markdown(
             """
-            <div style="padding: 4px 0px 12px 0px; text-align: center; border-bottom: 1px solid #1E293B; margin-bottom: 12px;">
+            <div style="background-color: #1E293B; padding: 12px; border-radius: 8px; border: 1px solid #334155; margin-bottom: 16px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
                 <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
                     <svg width="24" height="24" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20 4L36 32H27L20 18L13 32H4L20 4Z" fill="#1E40AF"/>
+                        <path d="M20 4L36 32H27L20 18L13 32H4L20 4Z" fill="#3B82F6"/>
                         <path d="M20 18L26 32H21L20 29L19 32H14L20 18Z" fill="#FFFFFF"/>
                     </svg>
-                    <span style="font-size: 17px; font-weight: 800; color: #FFFFFF; letter-spacing: -0.5px; font-family: 'Segoe UI', sans-serif;">
+                    <span style="font-size: 16px; font-weight: 800; color: #FFFFFF; letter-spacing: -0.5px; font-family: 'Segoe UI', sans-serif;">
                         VANGUARD
                     </span>
                 </div>
-                <div style="font-size: 8.5px; font-weight: 700; color: #60A5FA; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 2px;">
+                <div style="font-size: 8.5px; font-weight: 700; color: #60A5FA; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 3px;">
                     Sistemas de Gestão
                 </div>
             </div>
@@ -230,6 +231,21 @@ def main():
             st.session_state["usuario_logado"] = None
             st.session_state["modulo_ativo"] = "Boas-vindas"
             reexecutar()
+
+        # ASSINATURA DISCRETA NO RODAPÉ DA SIDEBAR
+        st.markdown(
+            """
+            <div style="margin-top: 35px; padding-top: 12px; border-top: 1px solid #1E293B; text-align: center;">
+                <div style="font-size: 8.5px; color: #64748B; font-style: italic; margin-bottom: 4px;">
+                    "Controle absoluto. Operação simples."
+                </div>
+                <div style="font-size: 9px; color: #475569; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">
+                    Vanguard ERP © 2026
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
     # ÁREA CENTRAL
     modulo_selecionado = st.session_state.get("modulo_ativo", "Boas-vindas")
