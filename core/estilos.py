@@ -2,26 +2,51 @@ import streamlit as st
 
 def aplicar_estilos_customizados():
     """
-    Injeta o CSS global ajustando a barra lateral (sidebar) para um tom escuro 
-    elegante e corrigindo o espaçamento dos componentes.
+    Injeta o CSS global ajustando a barra lateral (sidebar) e corrigindo 
+    o contraste dos botões de navegação.
     """
     st.markdown(
         """
         <style>
-            /* ESCURECE A BARRA LATERAL (SIDEBAR) EM UM TOM SÓBRIO CORPORATIVO */
+            /* ESCURECE A BARRA LATERAL (SIDEBAR) */
             [data-testid="stSidebar"] {
                 background-color: #0B1120 !important;
                 border-right: 1px solid #1E293B !important;
             }
 
-            /* Garante que os textos e elementos da sidebar fiquem legíveis */
+            /* Textos gerais da sidebar */
             [data-testid="stSidebar"] p, 
             [data-testid="stSidebar"] span, 
             [data-testid="stSidebar"] label {
                 color: #F8FAFC !important;
             }
 
-            /* Ajuste das abas (Tabs) */
+            /* BOTÕES DA SIDEBAR (MENU) */
+            /* Botões Inativos (Secundários) - Fundo escuro elegante com texto branco */
+            [data-testid="stSidebar"] .stButton > button[kind="secondary"] {
+                background-color: #1E293B !important;
+                color: #F8FAFC !important;
+                border: 1px solid #334155 !important;
+                font-weight: 500 !important;
+            }
+            [data-testid="stSidebar"] .stButton > button[kind="secondary"]:hover {
+                background-color: #334155 !important;
+                border: 1px solid #475569 !important;
+                color: #FFFFFF !important;
+            }
+
+            /* Botão Ativo (Primário) - Azul corporativo destacado */
+            [data-testid="stSidebar"] .stButton > button[kind="primary"] {
+                background-color: #1E40AF !important;
+                color: #FFFFFF !important;
+                border: 1px solid #1E40AF !important;
+                font-weight: 600 !important;
+            }
+            [data-testid="stSidebar"] .stButton > button[kind="primary"]:hover {
+                background-color: #1D4ED8 !important;
+            }
+
+            /* Abas (Tabs) globais */
             .stTabs [data-baseweb="tab-highlight"] {
                 background-color: #1E40AF !important;
             }
@@ -31,25 +56,6 @@ def aplicar_estilos_customizados():
             }
             .stTabs [data-baseweb="tab"] p {
                 font-weight: 600 !important;
-            }
-
-            /* Botões primários */
-            button[kind="primary"], 
-            .stFormSubmitButton > button[kind="primary"],
-            [data-testid="baseButton-primary"] {
-                background-color: #1E40AF !important;
-                background: #1E40AF !important;
-                color: #FFFFFF !important;
-                border: 1px solid #1E40AF !important;
-                font-weight: 600 !important;
-                transition: all 0.2s ease;
-            }
-            button[kind="primary"]:hover, 
-            .stFormSubmitButton > button[kind="primary"]:hover,
-            [data-testid="baseButton-primary"]:hover {
-                background-color: #1D4ED8 !important;
-                background: #1D4ED8 !important;
-                color: #FFFFFF !important;
             }
 
             input {
@@ -78,9 +84,7 @@ def aplicar_fundo_login():
     )
 
 def renderizar_card_usuario(nome_empresa, usuario, setor):
-    """
-    Renderiza o cartão do usuário perfeitamente ajustado para o fundo escuro da barra lateral.
-    """
+    """Renderiza o cartão do usuário perfeitamente ajustado."""
     st.markdown(
         f"""
         <div style="background-color: #1E293B; padding: 14px; border-radius: 8px; border: 1px solid #334155; margin-bottom: 20px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
