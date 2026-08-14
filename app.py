@@ -11,10 +11,12 @@ from core.estilos import (
     renderizar_card_usuario,
 )
 
-# Configuração Oficial da Marca Vanguard
+# 1. Configuração de Marca e Ícone da Aba em Alta Resolução (Favicon Vetorial)
+FAVICON_VETORIAL = "https://api.iconify.design/lucide:diamond.svg?color=%232563eb"
+
 st.set_page_config(
     page_title="Vanguard | Sistemas de Gestão",
-    page_icon="🔷",
+    page_icon=FAVICON_VETORIAL,
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -56,7 +58,7 @@ def modal_primeiro_acesso(username):
 
 
 def tela_login():
-    """Tela de Login Corporativa Vanguard (Vetor SVG Minimalista)."""
+    """Tela de Login Corporativa Vanguard."""
     aplicar_fundo_login()
 
     col_esq, col_centro, col_dir = st.columns([1, 1.2, 1])
@@ -109,7 +111,7 @@ def tela_login():
 
         st.markdown("<div style='margin-top: 10px;'></div>", unsafe_allow_html=True)
 
-        # BOTÕES AUXILIARES GHOST
+        # BOTÕES AUXILIARES
         if st.button("Solicitar Cadastro de Empresa", key="btn_solicitar_cad", use_container_width=True):
             st.info("Entre em contato com a equipe comercial Vanguard pelo WhatsApp (11) 99999-8888.")
 
@@ -119,6 +121,22 @@ def tela_login():
 
 def main():
     aplicar_estilos_customizados()
+
+    # 2. OVERRIDE CSS: DESCOMPRIME O CONTEÚDO CENTRAL E REMOVE O ESPAÇO EM BRANCO NO TOPO
+    st.markdown(
+        """
+        <style>
+            .main .block-container {
+                padding-top: 1rem !important;
+                padding-bottom: 2rem !important;
+                padding-left: 2rem !important;
+                padding-right: 2rem !important;
+                max-width: 98% !important;
+            }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
 
     if "usuario_logado" not in st.session_state or not st.session_state["usuario_logado"]:
         tela_login()
@@ -132,7 +150,7 @@ def main():
 
     # BARRA LATERAL (SIDEBAR)
     with st.sidebar:
-        # LOGO DE TOPO NA SIDEBAR (VETORIAL SVG)
+        # LOGO DE TOPO NA SIDEBAR
         st.markdown(
             """
             <div style="padding: 4px 0px 16px 0px; text-align: center; border-bottom: 1px solid #1E293B; margin-bottom: 16px;">
@@ -161,10 +179,13 @@ def main():
 
         modulos_permitidos = list(usuario.get("modulos", ["Boas-vindas"]))
 
-        # LÓGICA DO PAINEL SAAS MASTER (EMPRESA MATRIZ)
-        if usuario.get("empresa_id") == 1 and usuario.get("is_admin"):
-            if " Painel SaaS Master" not in modulos_permitidos:
-                modulos_permitidos.append(" Painel SaaS Master")
+        # 3. LÓGICA DO PAINEL SAAS MASTER (CORRIGIDA STRING E TIPO DE DADO)
+        is_empresa_matriz = str(usuario.get("empresa_id")) == "1" or usuario.get("empresa_id") == 1
+        is_admin_user = usuario.get("is_admin") or usuario.get("username") == "admin"
+
+        if is_empresa_matriz and is_admin_user:
+            if "Painel SaaS Master" not in modulos_permitidos:
+                modulos_permitidos.append("Painel SaaS Master")
 
         if "modulo_ativo" not in st.session_state:
             st.session_state["modulo_ativo"] = modulos_permitidos[0] if modulos_permitidos else "Boas-vindas"
@@ -179,10 +200,10 @@ def main():
             "Técnico": ("Técnico", "tecnico"),
             "Financeiro": ("Financeiro", "financeiro"),
             "Administrativo": ("Administrativo", "admin"),
-            " Painel SaaS Master": ("Painel SaaS Master", "saas_master"),
+            "Painel SaaS Master": ("Painel SaaS Master", "saas_master"),
         }
 
-        # MENU COM BOTOES FULL WIDTH E HIGHLIGHT ATIVO
+        # MENU LATERAL
         for mod_key in modulos_permitidos:
             if mod_key in mapa_modulos:
                 label, _ = mapa_modulos[mod_key]
@@ -200,7 +221,7 @@ def main():
             st.session_state["modulo_ativo"] = None
             reexecutar()
 
-    # ÁREA CENTRAL / RENDERIZAÇÃO DINÂMICA
+    # ÁREA CENTRAL / RENDERIZAÇÃO
     modulo_selecionado = st.session_state.get("modulo_ativo", "Boas-vindas")
 
     if modulo_selecionado in mapa_modulos:
