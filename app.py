@@ -11,8 +11,8 @@ from core.estilos import (
     renderizar_card_usuario,
 )
 
-# Favicon Oficial Vanguard (Padronizado com branco)
-FAVICON_VANGUARD = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><path d='M20 4L36 32H27L20 18L13 32H4L20 4Z' fill='%231E40AF'/><path d='M20 18L26 32H21L20 29L19 32H14L20 18Z' fill='%23FFFFFF'/></svg>"
+# Favicon Oficial Vanguard (Cinza Grafite para destacar na aba do navegador)
+FAVICON_VANGUARD = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><path d='M20 4L36 32H27L20 18L13 32H4L20 4Z' fill='%231E40AF'/><path d='M20 18L26 32H21L20 29L19 32H14L20 18Z' fill='%23334155'/></svg>"
 
 st.set_page_config(
     page_title="Vanguard | Sistemas de Gestão",
@@ -79,7 +79,7 @@ def tela_login():
                     <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 4px;">
                         <svg width="38" height="38" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M20 4L36 32H27L20 18L13 32H4L20 4Z" fill="#1E40AF"/>
-                            <path d="M20 18L26 32H21L20 29L19 32H14L20 18Z" fill="#FFFFFF"/>
+                            <path d="M20 18L26 32H21L20 29L19 32H14L20 18Z" fill="#334155"/>
                         </svg>
                         <span style="font-size: 28px; font-weight: 800; color: #0F172A; letter-spacing: -1px; font-family: 'Segoe UI', sans-serif;">
                             VANGUARD
@@ -166,7 +166,7 @@ def main():
 
     # BARRA LATERAL
     with st.sidebar:
-        # CARD DE LOGO NO TOPO
+        # CARD DE LOGO NO TOPO (Mantém branco para contraste no fundo escuro da sidebar)
         st.markdown(
             """
             <div style="background-color: #1E293B; padding: 12px; border-radius: 8px; border: 1px solid #334155; margin-bottom: 16px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
@@ -232,7 +232,7 @@ def main():
             st.session_state["modulo_ativo"] = "Boas-vindas"
             reexecutar()
 
-        # ASSINATURA COM FONTES BEM CLARAS
+        # ASSINATURA DISCRETA NO RODAPÉ
         st.markdown(
             """
             <div style="margin-top: 35px; padding-top: 12px; border-top: 1px solid #1E293B; text-align: center;">
