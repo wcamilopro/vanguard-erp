@@ -11,8 +11,8 @@ from core.estilos import (
     renderizar_card_usuario,
 )
 
-# Favicon com cinza grafite otimizado para a aba clara do navegador
-FAVICON_VANGUARD = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><path d='M20 4L36 32H27L20 18L13 32H4L20 4Z' fill='%231E40AF'/><path d='M20 18L26 32H21L20 29L19 32H14L20 18Z' fill='%23334155'/></svg>"
+# Favicon Oficial Vanguard (Azul em cima e Cinza Claro em baixo)
+FAVICON_VANGUARD = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><path d='M20 4L36 32H27L20 18L13 32H4L20 4Z' fill='%233B82F6'/><path d='M20 18L26 32H21L20 29L19 32H14L20 18Z' fill='%23E2E8F0'/></svg>"
 
 st.set_page_config(
     page_title="Vanguard | Sistemas de Gestão",
@@ -65,7 +65,7 @@ def modal_primeiro_acesso(username):
 
 
 def tela_login():
-    """Tela de Login Corporativa Vanguard (Fundo Escuro)."""
+    """Tela de Login Corporativa Vanguard (Tudo unificado no card central)."""
     aplicar_fundo_login()
 
     _, col_centro, _ = st.columns([1, 1.1, 1])
@@ -73,13 +73,14 @@ def tela_login():
     with col_centro:
         st.markdown("<br>", unsafe_allow_html=True)
         with st.container(border=True):
+            # LOGOTIPO PADRONIZADO (Azul em cima e Cinza Claro em baixo)
             st.markdown(
                 """
                 <div style="text-align: center; margin-bottom: 20px;">
                     <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 4px;">
                         <svg width="38" height="38" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M20 4L36 32H27L20 18L13 32H4L20 4Z" fill="#3B82F6"/>
-                            <path d="M20 18L26 32H21L20 29L19 32H14L20 18Z" fill="#FFFFFF"/>
+                            <path d="M20 18L26 32H21L20 29L19 32H14L20 18Z" fill="#E2E8F0"/>
                         </svg>
                         <span style="font-size: 28px; font-weight: 800; color: #FFFFFF; letter-spacing: -1px; font-family: 'Segoe UI', sans-serif;">
                             VANGUARD
@@ -116,7 +117,8 @@ def tela_login():
                     else:
                         st.warning("Preencha todos os campos.")
 
-            st.markdown("<div style='margin-top: 12px;'></div>", unsafe_allow_html=True)
+            # BOTÕES SECUNDÁRIOS DENTRO DO MESMO CARD
+            st.markdown("<div style='margin-top: 10px;'></div>", unsafe_allow_html=True)
             col_b1, col_b2 = st.columns(2)
             with col_b1:
                 if st.button("Solicitar Cadastro", key="btn_solicitar_cad", use_container_width=True):
@@ -166,14 +168,14 @@ def main():
 
     # BARRA LATERAL
     with st.sidebar:
-        # CARD DE LOGO NO TOPO
+        # LOGOTIPO PADRONIZADO NO TOPO DA SIDEBAR
         st.markdown(
             """
             <div style="background-color: #1E293B; padding: 12px; border-radius: 8px; border: 1px solid #334155; margin-bottom: 16px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
                 <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
                     <svg width="24" height="24" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M20 4L36 32H27L20 18L13 32H4L20 4Z" fill="#3B82F6"/>
-                        <path d="M20 18L26 32H21L20 29L19 32H14L20 18Z" fill="#FFFFFF"/>
+                        <path d="M20 18L26 32H21L20 29L19 32H14L20 18Z" fill="#E2E8F0"/>
                     </svg>
                     <span style="font-size: 16px; font-weight: 800; color: #FFFFFF; letter-spacing: -0.5px; font-family: 'Segoe UI', sans-serif;">
                         VANGUARD
