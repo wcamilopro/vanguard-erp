@@ -65,7 +65,7 @@ def modal_primeiro_acesso(username):
 
 
 def tela_login():
-    """Tela de Login Corporativa Vanguard (100% unificada dentro do card)."""
+    """Tela de Login Corporativa Vanguard (Card destacado com botões padronizados)."""
     aplicar_fundo_login()
 
     _, col_centro, _ = st.columns([1, 1.1, 1])
@@ -118,7 +118,7 @@ def tela_login():
                 else:
                     st.warning("Preencha todos os campos.")
 
-            # BOTÕES SECUNDÁRIOS DENTRO DO MESMO CARD
+            # BOTÕES SECUNDÁRIOS DENTRO DO MESMO CARD (PADRONIZADOS)
             st.markdown("<div style='margin-top: 10px;'></div>", unsafe_allow_html=True)
             col_b1, col_b2 = st.columns(2)
             with col_b1:
