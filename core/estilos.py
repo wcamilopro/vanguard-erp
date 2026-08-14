@@ -49,3 +49,22 @@ def aplicar_fundo_login():
         """,
         unsafe_allow_html=True,
     )
+
+def renderizar_card_usuario(nome_empresa, usuario, setor):
+    """Renderiza o cartão do usuário na barra lateral."""
+    st.markdown(
+        f"""
+        <div style="background-color: #1E293B; padding: 14px; border-radius: 8px; border: 1px solid #334155; margin-bottom: 20px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <div style="background-color: #1E40AF; color: white; width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                    {str(nome_empresa)[0].upper()}
+                </div>
+                <div>
+                    <div style="color: #F8FAFC; font-weight: 700; font-size: 13px;">{nome_empresa}</div>
+                    <div style="color: #94A3B8; font-size: 11px;">@{usuario}</div>
+                </div>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
