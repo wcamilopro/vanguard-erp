@@ -1,14 +1,17 @@
 [theme]
-# Cor azul corporativa (substitui o botão vermelho)
+# Trava o sistema no modo escuro (Corrige os cards brancos na tela de admin)
+base = "dark"
+
+# Cor dos botões principais (Azul Corporativo)
 primaryColor = "#1E40AF"
 
-# Fundo geral da tela (Preto profundo que queríamos)
-backgroundColor = "#8A9499"
+# Fundo geral da tela (Preto Profundo - substitui a tarja cinza)
+backgroundColor = "#050810"
 
-# Fundo da barra lateral e dos Cards (Azul acinzentado, criando o contraste)
+# Fundo dos Cards e do Menu Lateral (Azul Acinzentado)
 secondaryBackgroundColor = "#1E293B"
 
-# Cor dos textos globais
+# Cor do Texto
 textColor = "#F8FAFC"
 
 font = "sans serif"
