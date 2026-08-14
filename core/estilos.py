@@ -2,8 +2,7 @@ import streamlit as st
 
 def aplicar_estilos_customizados():
     """
-    Injeta o CSS global ajustando a barra lateral (sidebar) e corrigindo 
-    o contraste dos botões de navegação.
+    Injeta o CSS global ajustando a barra lateral (sidebar) e os elementos visuais.
     """
     st.markdown(
         """
@@ -22,7 +21,6 @@ def aplicar_estilos_customizados():
             }
 
             /* BOTÕES DA SIDEBAR (MENU) */
-            /* Botões Inativos (Secundários) - Fundo escuro elegante com texto branco */
             [data-testid="stSidebar"] .stButton > button[kind="secondary"] {
                 background-color: #1E293B !important;
                 color: #F8FAFC !important;
@@ -35,7 +33,6 @@ def aplicar_estilos_customizados():
                 color: #FFFFFF !important;
             }
 
-            /* Botão Ativo (Primário) - Azul corporativo destacado */
             [data-testid="stSidebar"] .stButton > button[kind="primary"] {
                 background-color: #1E40AF !important;
                 color: #FFFFFF !important;
@@ -71,12 +68,19 @@ def aplicar_estilos_customizados():
     )
 
 def aplicar_fundo_login():
-    """Fundo neutro e limpo para a tela de login."""
+    """Fundo elegante e destaque robusto para o card da tela de login."""
     st.markdown(
         """
         <style>
             .stApp {
-                background-color: #F8FAFC !important;
+                background-color: #F1F5F9 !important;
+            }
+            /* Destaca o container de login para não sumir no fundo */
+            [data-testid="stVerticalBlock"] > div:has([data-testid="stContainer"]) {
+                background-color: #FFFFFF !important;
+                border-radius: 12px !important;
+                box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.08) !important;
+                border: 1px solid #E2E8F0 !important;
             }
         </style>
         """,
@@ -84,7 +88,7 @@ def aplicar_fundo_login():
     )
 
 def renderizar_card_usuario(nome_empresa, usuario, setor):
-    """Renderiza o cartão do usuário perfeitamente ajustado."""
+    """Renderiza o cartão do usuário na barra lateral."""
     st.markdown(
         f"""
         <div style="background-color: #1E293B; padding: 14px; border-radius: 8px; border: 1px solid #334155; margin-bottom: 20px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
