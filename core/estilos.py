@@ -68,35 +68,37 @@ def aplicar_estilos_customizados():
     )
 
 def aplicar_fundo_login():
-    """Fundo escuro corporativo e card unificado de alto contraste para o login."""
+    """Fundo escuro corporativo e card com alto contraste e botões padronizados."""
     st.markdown(
         """
         <style>
             .stApp {
                 background-color: #0F172A !important;
             }
-            /* Card único e destacado para todo o conteúdo do login */
-            [data-testid="stVerticalBlock"] > div:has([data-testid="stContainer"]) {
+            /* Garante destaque absoluto do container de login sobre o fundo */
+            [data-testid="stContainer"] {
                 background-color: #1E293B !important;
-                border-radius: 12px !important;
-                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4) !important;
+                border-radius: 16px !important;
+                box-shadow: 0 25px 35px -5px rgba(0, 0, 0, 0.7), 0 15px 15px -5px rgba(0, 0, 0, 0.5) !important;
                 border: 1px solid #334155 !important;
-                padding: 10px !important;
+                padding: 24px !important;
             }
-            /* Labels dentro do card de login */
+            /* Labels dos inputs de login */
             [data-testid="stContainer"] label p {
                 color: #F8FAFC !important;
                 font-weight: 600 !important;
             }
-            /* Botões secundários dentro do card de login */
-            [data-testid="stContainer"] .stButton > button[kind="secondary"] {
-                background-color: #334155 !important;
-                color: #F8FAFC !important;
-                border: 1px solid #475569 !important;
-                font-weight: 500 !important;
+            /* PADRONIZAÇÃO DE TODOS OS BOTÕES DO LOGIN (Seguindo o padrão do botão 'Entrar') */
+            [data-testid="stContainer"] .stButton > button {
+                background-color: #1E40AF !important;
+                color: #FFFFFF !important;
+                border: 1px solid #1D4ED8 !important;
+                font-weight: 600 !important;
+                border-radius: 6px !important;
             }
-            [data-testid="stContainer"] .stButton > button[kind="secondary"]:hover {
-                background-color: #475569 !important;
+            [data-testid="stContainer"] .stButton > button:hover {
+                background-color: #1D4ED8 !important;
+                border: 1px solid #2563EB !important;
                 color: #FFFFFF !important;
             }
         </style>
