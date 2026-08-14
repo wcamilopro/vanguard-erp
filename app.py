@@ -166,7 +166,7 @@ def main():
 
     # BARRA LATERAL
     with st.sidebar:
-        # CARD DE LOGO NO TOPO (TOM UM POUCO MAIS CLARO QUE O FUNDO DA SIDEBAR)
+        # CARD DE LOGO NO TOPO
         st.markdown(
             """
             <div style="background-color: #1E293B; padding: 12px; border-radius: 8px; border: 1px solid #334155; margin-bottom: 16px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
@@ -232,14 +232,14 @@ def main():
             st.session_state["modulo_ativo"] = "Boas-vindas"
             reexecutar()
 
-        # ASSINATURA DISCRETA NO RODAPÉ DA SIDEBAR
+        # ASSINATURA COM FONTES BEM CLARAS E DESTAQUE PROFISSIONAL
         st.markdown(
             """
             <div style="margin-top: 35px; padding-top: 12px; border-top: 1px solid #1E293B; text-align: center;">
-                <div style="font-size: 8.5px; color: #64748B; font-style: italic; margin-bottom: 4px;">
+                <div style="font-size: 9.5px; color: #94A3B8; font-style: italic; margin-bottom: 5px;">
                     "Controle absoluto. Operação simples."
                 </div>
-                <div style="font-size: 9px; color: #475569; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">
+                <div style="font-size: 10px; color: #F1F5F9; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px;">
                     Vanguard ERP © 2026
                 </div>
             </div>
