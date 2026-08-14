@@ -3,7 +3,7 @@
 primaryColor = "#1E40AF"
 
 # Fundo geral da tela (Preto profundo que queríamos)
-backgroundColor = "#8A9499#
+backgroundColor = "#8A9499"
 
 # Fundo da barra lateral e dos Cards (Azul acinzentado, criando o contraste)
 secondaryBackgroundColor = "#1E293B"
