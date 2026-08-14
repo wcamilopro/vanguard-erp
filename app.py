@@ -112,7 +112,7 @@ def tela_login():
                     else:
                         st.warning("Preencha todos os campos.")
 
-            # BOTÕES AUXILIARES COMPACTOS (DENTRO DO CARTÃO)
+            # BOTÕES AUXILIARES COMPACTOS
             st.markdown("<div style='margin-top: 12px;'></div>", unsafe_allow_html=True)
             col_b1, col_b2 = st.columns(2)
             with col_b1:
@@ -126,10 +126,11 @@ def tela_login():
 def main():
     aplicar_estilos_customizados()
 
-    # CSS CUSTOMIZADO: DESCOMPRIME A TELA E AJUSTA O RESPIRO DO TOPO
+    # CSS CUSTOMIZADO: MATANDO O VERMELHO E O AZUL "CHEGUEI"
     st.markdown(
         """
         <style>
+            /* Container principal e respiro do topo */
             .main .block-container {
                 padding-top: 2.2rem !important;
                 padding-bottom: 2rem !important;
@@ -138,6 +139,7 @@ def main():
                 max-width: 98% !important;
             }
 
+            /* Sidebar compacta */
             [data-testid="stSidebar"] [data-testid="stVerticalBlock"] > div {
                 gap: 0.35rem !important;
             }
@@ -149,10 +151,30 @@ def main():
                 border-radius: 6px !important;
             }
 
+            /* OVERRIDE GLOBAL DE CORES PRIMÁRIAS (Botões) */
+            /* Aplica o tom Dark Slate da logo em todos os botões de ação principal */
             .stFormSubmitButton > button[kind="primary"],
             .stButton > button[kind="primary"] {
+                background-color: #0F172A !important;
                 color: #FFFFFF !important;
+                border: 1px solid #0F172A !important;
                 font-weight: 600 !important;
+                transition: all 0.3s ease;
+            }
+            .stFormSubmitButton > button[kind="primary"]:hover,
+            .stButton > button[kind="primary"]:hover {
+                background-color: #1E293B !important;
+                border: 1px solid #1E293B !important;
+                color: #FFFFFF !important;
+            }
+
+            /* OVERRIDE GLOBAL DE CORES DAS ABAS (Tabs) - Mata a linha vermelha */
+            .stTabs [data-baseweb="tab-highlight"] {
+                background-color: #0F172A !important;
+            }
+            .stTabs [data-baseweb="tab"][aria-selected="true"] p {
+                color: #0F172A !important;
+                font-weight: 700 !important;
             }
         </style>
         """,
