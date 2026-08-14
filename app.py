@@ -11,8 +11,8 @@ from core.estilos import (
     renderizar_card_usuario,
 )
 
-# Favicon Oficial Vanguard
-FAVICON_VANGUARD = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><path d='M20 4L36 32H27L20 18L13 32H4L20 4Z' fill='%231E40AF'/><path d='M20 18L26 32H21L20 29L19 32H14L20 18Z' fill='%230F172A'/></svg>"
+# Favicon Oficial Vanguard (Padronizado com branco)
+FAVICON_VANGUARD = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><path d='M20 4L36 32H27L20 18L13 32H4L20 4Z' fill='%231E40AF'/><path d='M20 18L26 32H21L20 29L19 32H14L20 18Z' fill='%23FFFFFF'/></svg>"
 
 st.set_page_config(
     page_title="Vanguard | Sistemas de Gestão",
@@ -79,7 +79,7 @@ def tela_login():
                     <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 4px;">
                         <svg width="38" height="38" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M20 4L36 32H27L20 18L13 32H4L20 4Z" fill="#1E40AF"/>
-                            <path d="M20 18L26 32H21L20 29L19 32H14L20 18Z" fill="#0F172A"/>
+                            <path d="M20 18L26 32H21L20 29L19 32H14L20 18Z" fill="#FFFFFF"/>
                         </svg>
                         <span style="font-size: 28px; font-weight: 800; color: #0F172A; letter-spacing: -1px; font-family: 'Segoe UI', sans-serif;">
                             VANGUARD
@@ -232,7 +232,7 @@ def main():
             st.session_state["modulo_ativo"] = "Boas-vindas"
             reexecutar()
 
-        # ASSINATURA COM FONTES BEM CLARAS E DESTAQUE PROFISSIONAL
+        # ASSINATURA COM FONTES BEM CLARAS
         st.markdown(
             """
             <div style="margin-top: 35px; padding-top: 12px; border-top: 1px solid #1E293B; text-align: center;">
