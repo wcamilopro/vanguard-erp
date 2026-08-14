@@ -68,7 +68,7 @@ def aplicar_estilos_customizados():
     )
 
 def aplicar_fundo_login():
-    """Fundo escuro corporativo e card unificado para a tela de login."""
+    """Fundo escuro corporativo e card unificado de alto contraste para o login."""
     st.markdown(
         """
         <style>
@@ -83,9 +83,21 @@ def aplicar_fundo_login():
                 border: 1px solid #334155 !important;
                 padding: 10px !important;
             }
-            .stForm label p {
+            /* Labels dentro do card de login */
+            [data-testid="stContainer"] label p {
                 color: #F8FAFC !important;
                 font-weight: 600 !important;
+            }
+            /* Botões secundários dentro do card de login */
+            [data-testid="stContainer"] .stButton > button[kind="secondary"] {
+                background-color: #334155 !important;
+                color: #F8FAFC !important;
+                border: 1px solid #475569 !important;
+                font-weight: 500 !important;
+            }
+            [data-testid="stContainer"] .stButton > button[kind="secondary"]:hover {
+                background-color: #475569 !important;
+                color: #FFFFFF !important;
             }
         </style>
         """,
