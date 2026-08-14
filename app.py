@@ -1,214 +1,251 @@
-import importlib
 import streamlit as st
-from core.db import (
-    alterar_senha_primeiro_acesso_db,
-    autenticar_usuario,
-    init_db,
-)
-from core.estilos import (
-    aplicar_estilos_customizados,
-    aplicar_fundo_login,
-    renderizar_card_usuario,
-)
 
-# Configuração Oficial da Marca Vanguard
+# 1. CONFIGURAÇÃO DA PÁGINA (Ajuste crucial para TELA CHEIA / WIDE)
 st.set_page_config(
     page_title="Vanguard | Sistemas de Gestão",
-    layout="wide",
-    initial_sidebar_state="expanded",
+    page_icon="🔺",
+    layout="wide",  # Impede que o layout fique espremido no meio da tela
+    initial_sidebar_state="expanded"
 )
 
-# Inicializa o Banco de Dados
-init_db()
+# 2. ESTILIZAÇÃO CSS CUSTOMIZADA (Fim do visual truncado)
+st.markdown("""
+<style>
+    /* Estilização Geral e Fundo */
+    .stApp {
+        background-color: #f8f9fa;
+    }
+    
+    /* Remover margens excessivas do topo no Streamlit */
+    .block-container {
+        padding-top: 2rem !important;
+        padding-bottom: 3rem !important;
+        padding-left: 3rem !important;
+        padding-right: 3rem !important;
+        max-width: 100% !important;
+    }
 
+    /* Cards de Indicadores (Métricas do Topo) */
+    .metric-card {
+        background-color: #ffffff;
+        border: 1px solid #e9ecef;
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        transition: transform 0.2s ease;
+    }
+    .metric-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    .metric-title {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #6c757d;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 8px;
+    }
+    .metric-value {
+        font-size: 1.3rem;
+        font-weight: 800;
+        color: #1e293b;
+    }
+    .status-active {
+        color: #10b981;
+    }
 
-def reexecutar():
-    """Garante compatibilidade de recarregamento no Streamlit."""
-    if hasattr(st, "rerun"):
-        st.rerun()
-    else:
-        st.experimental_rerun()
+    /* Cards dos Módulos Habilitados */
+    .module-card {
+        background-color: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 24px;
+        height: 100%;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .module-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #0f172a;
+        margin-bottom: 10px;
+    }
+    .module-desc {
+        font-size: 0.9rem;
+        color: #64748b;
+        line-height: 1.5;
+        margin-bottom: 20px;
+    }
 
+    /* Estilização da Sidebar */
+    [data-testid="stSidebar"] {
+        background-color: #0f172a;
+    }
+    [data-testid="stSidebar"] * {
+        color: #f8fafc;
+    }
+    
+    /* Badges e Tags */
+    .badge-available {
+        background-color: #e0f2fe;
+        color: #0369a1;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        display: inline-block;
+        width: fit-content;
+    }
+</style>
+""", unsafe_allow_html=True)
 
-def modal_primeiro_acesso(username):
-    """Modal obrigatório para redefinição de senha no primeiro acesso."""
-    st.warning("🔒 Primeiro Acesso Detectado")
-    st.info("Por razões de segurança, você precisa cadastrar uma nova senha para continuar.")
+# 3. ESTADO DA SESSÃO (Simulação de Login para testes)
+if "logged_in" not in st.session_state:
+    st.session_state.logged_in = True  # Padrão logado para visualização do layout
 
-    with st.form("form_primeiro_acesso"):
-        nova_senha = st.text_input("Nova Senha", type="password")
-        confirma_senha = st.text_input("Confirme a Nova Senha", type="password")
-        btn_salvar = st.form_submit_button("Atualizar Senha e Acessar")
-
-        if btn_salvar:
-            if not nova_senha or len(nova_senha) < 4:
-                st.error("A senha deve conter no mínimo 4 caracteres.")
-            elif nova_senha != confirma_senha:
-                st.error("As senhas digitadas não coincidem.")
-            else:
-                if alterar_senha_primeiro_acesso_db(username, nova_senha):
-                    st.success("Senha alterada com sucesso!")
-                    st.session_state["usuario_logado"]["primeiro_acesso"] = False
-                    reexecutar()
-                else:
-                    st.error("Erro ao atualizar a senha. Tente novamente.")
-
-
-def tela_login():
-    """Tela de Login Corporativa Vanguard (Vetor SVG Minimalista)."""
-    aplicar_fundo_login()
-
-    col_esq, col_centro, col_dir = st.columns([1, 1.2, 1])
-
-    with col_centro:
-        # LOGO VETORIAL SVG CLEAN
-        st.markdown(
-            """
-            <div style="text-align: center; margin-bottom: 24px;">
-                <div style="display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 6px;">
-                    <svg width="42" height="42" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20 4L36 32H27L20 18L13 32H4L20 4Z" fill="#2563EB"/>
-                        <path d="M20 18L26 32H21L20 29L19 32H14L20 18Z" fill="#0F172A"/>
-                    </svg>
-                    <span style="font-size: 32px; font-weight: 800; color: #0F172A; letter-spacing: -1px; font-family: 'Segoe UI', sans-serif;">
-                        VANGUARD
-                    </span>
-                </div>
-                <div style="font-size: 11px; font-weight: 700; color: #2563EB; text-transform: uppercase; letter-spacing: 2.5px;">
-                    SISTEMAS DE GESTÃO
-                </div>
-                <div style="font-size: 12.5px; color: #64748B; margin-top: 8px; font-style: italic;">
-                    "Controle absoluto. Operação simples."
-                </div>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-
-        # FORMULÁRIO DE ACESSO
-        with st.form("form_login"):
-            usuario_input = st.text_input("Usuário / Login")
-            senha_input = st.text_input("Senha", type="password")
-            submit = st.form_submit_button("Entrar no Sistema")
-
+# --- TELA DE LOGIN (se não estiver logado) ---
+if not st.session_state.logged_in:
+    col1, col2, col3 = st.columns([1, 1.5, 1])
+    with col2:
+        st.markdown("<h2 style='text-align: center; color: #1e293b;'>🔺 VANGUARD</h2>", unsafe_allow_html=True)
+        st.markdown("<p style='text-align: center; color: #64748b;'>SISTEMAS DE GESTÃO</p>", unsafe_allow_html=True)
+        
+        with st.form("login_form"):
+            user = st.text_input("Usuário / Login")
+            password = st.text_input("Senha", type="password")
+            submit = st.form_submit_button("Entrar no Sistema", use_container_width=True)
             if submit:
-                if usuario_input and senha_input:
-                    res = autenticar_usuario(usuario_input, senha_input)
+                st.session_state.logged_in = True
+                st.rerun()
 
-                    if res == "BLOQUEADO":
-                        st.error("🚫 Acesso Suspenso. Entre em contato com o suporte financeiro.")
-                    elif res:
-                        st.session_state["usuario_logado"] = res
-                        st.session_state["modulo_ativo"] = "Boas-vindas"
-                        reexecutar()
-                    else:
-                        st.error("Usuário ou senha incorretos.")
-                else:
-                    st.warning("Preencha todos os campos.")
-
-        st.markdown("<div style='margin-top: 10px;'></div>", unsafe_allow_html=True)
-
-        # BOTÕES AUXILIARES GHOST
-        if st.button("Solicitar Cadastro de Empresa", key="btn_solicitar_cad"):
-            st.info("Entre em contato com a equipe comercial Vanguard pelo WhatsApp (11) 99999-8888.")
-
-        if st.button("Esqueci minha senha", key="btn_esqueci_senha"):
-            st.info("Solicite o reset de senha ao administrador da sua empresa.")
-
-
-def main():
-    aplicar_estilos_customizados()
-
-    if "usuario_logado" not in st.session_state or not st.session_state["usuario_logado"]:
-        tela_login()
-        return
-
-    usuario = st.session_state["usuario_logado"]
-
-    if usuario.get("primeiro_acesso", False):
-        modal_primeiro_acesso(usuario["username"])
-        return
-
+# --- ÁREA LOGADA / DASHBOARD PRINCIPAL ---
+else:
     # BARRA LATERAL (SIDEBAR)
     with st.sidebar:
-        # LOGO DE TOPO NA SIDEBAR (VETORIAL SVG)
-        st.markdown(
-            """
-            <div style="padding: 4px 0px 16px 0px; text-align: center; border-bottom: 1px solid #1E293B; margin-bottom: 16px;">
-                <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
-                    <svg width="26" height="26" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20 4L36 32H27L20 18L13 32H4L20 4Z" fill="#3B82F6"/>
-                        <path d="M20 18L26 32H21L20 29L19 32H14L20 18Z" fill="#FFFFFF"/>
-                    </svg>
-                    <span style="font-size: 18px; font-weight: 800; color: #FFFFFF; letter-spacing: -0.5px; font-family: 'Segoe UI', sans-serif;">
-                        VANGUARD
-                    </span>
-                </div>
-                <div style="font-size: 9px; font-weight: 700; color: #60A5FA; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 3px;">
-                    Sistemas de Gestão
-                </div>
+        st.markdown("<h2 style='text-align: center; margin-bottom: 0;'>🔺 VANGUARD</h2>", unsafe_allow_html=True)
+        st.markdown("<p style='text-align: center; font-size: 0.8rem; color: #94a3b8;'>SISTEMAS DE GESTÃO</p>", unsafe_allow_html=True)
+        st.divider()
+        
+        # Perfil do Usuário
+        st.markdown("""
+            <div style='background-color: #1e293b; padding: 12px; border-radius: 8px; margin-bottom: 20px;'>
+                <strong style='color: #f8fafc;'>Master - CMDTC SERVIÇOS LTDA</strong><br>
+                <small style='color: #94a3b8;'>@user | Setor: Diretoria</small>
             </div>
-            """,
-            unsafe_allow_html=True,
+        """, unsafe_allow_html=True)
+        
+        st.markdown("### NAVEGAÇÃO")
+        menu = st.radio(
+            "Selecione a página:",
+            ["• Boas-vindas", "Comercial", "Recursos Humanos", "Administrativo", "Financeiro"],
+            label_visibility="collapsed"
         )
+        
+        st.divider()
+        if st.button("🚪 Sair do Sistema", use_container_width=True):
+            st.session_state.logged_in = False
+            st.rerun()
 
-        renderizar_card_usuario(
-            nome_empresa=usuario.get('nome', 'Empresa Cliente'),
-            usuario=usuario.get('username', 'usuario'),
-            setor=usuario.get('setor', 'Geral')
-        )
+    # CONTEÚDO PRINCIPAL (DASHBOARD)
+    if menu == "• Boas-vindas":
+        # Métricas do Topo em 4 Colunas bem espaçadas
+        m1, m2, m3, m4 = st.columns(4)
+        
+        with m1:
+            st.markdown("""
+                <div class="metric-card">
+                    <div class="metric-title">Status do Plano</div>
+                    <div class="metric-value status-active">● ATIVO</div>
+                </div>
+            """, unsafe_allow_html=True)
+            
+        with m2:
+            st.markdown("""
+                <div class="metric-card">
+                    <div class="metric-title">Módulos Contratados</div>
+                    <div class="metric-value">4 Módulos</div>
+                </div>
+            """, unsafe_allow_html=True)
+            
+        with m3:
+            st.markdown("""
+                <div class="metric-card">
+                    <div class="metric-title">Vencimento</div>
+                    <div class="metric-value">Dia 10</div>
+                </div>
+            """, unsafe_allow_html=True)
+            
+        with m4:
+            st.markdown("""
+                <div class="metric-card">
+                    <div class="metric-title">Forma de Pagamento</div>
+                    <div class="metric-value">Boleto Bancário</div>
+                </div>
+            """, unsafe_allow_html=True)
 
-        modulos_permitidos = list(usuario.get("modulos", ["Boas-vindas"]))
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.subheader("Módulos e Recursos Habilitados")
+        st.caption("Abaixo estão os acessos ativos para o perfil da sua empresa. Utilize o menu lateral para navegar.")
 
-        if usuario.get("empresa_id") == 1 and usuario.get("is_admin"):
-            if " Painel SaaS Master" not in modulos_permitidos:
-                modulos_permitidos.append(" Painel SaaS Master")
+        # Grid de Módulos (3 Colunas)
+        c1, c2, c3 = st.columns(3)
+        
+        with c1:
+            st.markdown("""
+                <div class="module-card">
+                    <div>
+                        <div class="module-title">Módulo Comercial</div>
+                        <div class="module-desc">Gestão de propostas, orçamentos, contratos e carteira de clientes.</div>
+                    </div>
+                    <span class="badge-available">Disponível</span>
+                </div>
+            """, unsafe_allow_html=True)
+            
+        with c2:
+            st.markdown("""
+                <div class="module-card">
+                    <div>
+                        <div class="module-title">Recursos Humanos (RH)</div>
+                        <div class="module-desc">Gestão de colaboradores, equipes, cargos e contatos operacionais.</div>
+                    </div>
+                    <span class="badge-available">Disponível</span>
+                </div>
+            """, unsafe_allow_html=True)
+            
+        with c3:
+            st.markdown("""
+                <div class="module-card">
+                    <div>
+                        <div class="module-title">Central Administrativa</div>
+                        <div class="module-desc">Configurações do sistema, logo corporativa para laudos e gestão de acessos.</div>
+                    </div>
+                    <span class="badge-available">Disponível</span>
+                </div>
+            """, unsafe_allow_html=True)
 
-        if "modulo_ativo" not in st.session_state:
-            st.session_state["modulo_ativo"] = modulos_permitidos[0] if modulos_permitidos else "Boas-vindas"
+        st.markdown("<br><br>", unsafe_allow_html=True)
 
-        st.markdown("<span style='color: #94A3B8; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;'>Navegação</span>", unsafe_allow_html=True)
+        # Seção Inferior: Avisos e Suporte
+        inf1, inf2 = st.columns([2, 1])
+        
+        with inf1:
+            st.info("""
+            **Avisos & Atualizações do Sistema**
+            * **Personalização de Documentos:** Cadastre a logomarca da sua empresa no módulo Administrativo para aplicar nos relatórios.
+            * **Segurança da Conta:** Mantenha as senhas individuais dos usuários atualizadas e evite compartilhamento de logins.
+            """)
+            
+        with inf2:
+            st.success("""
+            **Atendimento e Suporte**  
+            Precisa alterar seu plano ou adicionar novos usuários?  
+            📧 **suporte@vanguarderp.com.br**
+            """)
 
-        mapa_modulos = {
-            "Boas-vindas": ("Boas-vindas", "boas_vindas"),
-            "Comercial": ("Comercial", "comercial"),
-            "Recursos Humanos": ("Recursos Humanos", "rh"),
-            "Técnico": ("Técnico", "tecnico"),
-            "Financeiro": ("Financeiro", "financeiro"),
-            "Administrativo": ("Administrativo", "admin"),
-            " Painel SaaS Master": ("Painel SaaS Master", "saas_master"),
-        }
-
-        for mod_key in modulos_permitidos:
-            if mod_key in mapa_modulos:
-                label, _ = mapa_modulos[mod_key]
-                is_active = st.session_state["modulo_ativo"] == mod_key
-                prefix = "• " if is_active else ""
-
-                if st.button(f"{prefix}{label}", key=f"nav_{mod_key}"):
-                    st.session_state["modulo_ativo"] = mod_key
-                    reexecutar()
-
-        st.markdown("---")
-        if st.button("Sair do Sistema", key="btn_logout"):
-            st.session_state["usuario_logado"] = None
-            st.session_state["modulo_ativo"] = None
-            reexecutar()
-
-    # ÁREA CENTRAL / RENDERIZAÇÃO
-    modulo_selecionado = st.session_state.get("modulo_ativo", "Boas-vindas")
-
-    if modulo_selecionado in mapa_modulos:
-        _, pasta_modulo = mapa_modulos[modulo_selecionado]
-        try:
-            modulo = importlib.import_module(f"modulos.{pasta_modulo}.render")
-            modulo.render()
-        except ModuleNotFoundError:
-            st.title(f"Módulo {modulo_selecionado}")
-            st.info("Este módulo está em desenvolvimento ou a pasta correspondente não foi encontrada.")
-        except Exception as e:
-            st.error(f"Erro ao carregar o módulo '{modulo_selecionado}': {e}")
-
-
-if __name__ == "__main__":
-    main()
+    else:
+        st.title(f"Módulo: {menu}")
+        st.info("Esta seção está pronta para receber os formulários e tabelas de dados.")
