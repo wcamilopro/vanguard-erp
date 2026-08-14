@@ -2,47 +2,40 @@ import streamlit as st
 
 def aplicar_estilos_customizados():
     """
-    Injeta o CSS global e sobrescreve as variáveis nativas do Streamlit 
-    para eliminar completamente o vermelho e o azul padrão.
+    Injeta o CSS global com o Azul Corporativo Sóbrio (#1E40AF), 
+    mantendo a interface limpa, profissional e leve.
     """
     st.markdown(
         """
         <style>
-            /* Força as variáveis de sistema do Streamlit para Dark Slate */
-            :root {
-                --primary-color: #0F172A !important;
-                --text-color: #0F172A !important;
-                --background-color: #F8FAFC !important;
-                --secondary-background-color: #F1F5F9 !important;
-            }
-
-            /* Mata a linha e o destaque vermelho das abas (Tabs) */
+            /* Variáveis e destaque das abas (Tabs) */
             .stTabs [data-baseweb="tab-highlight"] {
-                background-color: #0F172A !important;
+                background-color: #1E40AF !important;
             }
             .stTabs [data-baseweb="tab"][aria-selected="true"] p {
-                color: #0F172A !important;
+                color: #1E40AF !important;
                 font-weight: 700 !important;
             }
             .stTabs [data-baseweb="tab"] p {
                 font-weight: 600 !important;
             }
 
-            /* Força todos os botões primários do Streamlit a usarem Dark Slate */
+            /* Botões primários com Azul Corporativo Equilibrado */
             button[kind="primary"], 
             .stFormSubmitButton > button[kind="primary"],
             [data-testid="baseButton-primary"] {
-                background-color: #0F172A !important;
-                background: #0F172A !important;
+                background-color: #1E40AF !important;
+                background: #1E40AF !important;
                 color: #FFFFFF !important;
-                border: 1px solid #0F172A !important;
+                border: 1px solid #1E40AF !important;
                 font-weight: 600 !important;
+                transition: all 0.2s ease;
             }
             button[kind="primary"]:hover, 
             .stFormSubmitButton > button[kind="primary"]:hover,
             [data-testid="baseButton-primary"]:hover {
-                background-color: #1E293B !important;
-                background: #1E293B !important;
+                background-color: #1D4ED8 !important;
+                background: #1D4ED8 !important;
                 color: #FFFFFF !important;
             }
 
@@ -72,12 +65,12 @@ def aplicar_fundo_login():
     )
 
 def renderizar_card_usuario(nome_empresa, usuario, setor):
-    """Cartão do usuário na barra lateral padronizado."""
+    """Cartão do usuário na barra lateral harmonizado."""
     st.markdown(
         f"""
         <div style="background-color: #0F172A; padding: 14px; border-radius: 8px; border: 1px solid #334155; margin-bottom: 24px;">
             <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
-                <div style="background-color: #2563EB; color: white; width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px;">
+                <div style="background-color: #1E40AF; color: white; width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 16px;">
                     {str(nome_empresa)[0].upper()}
                 </div>
                 <div>
