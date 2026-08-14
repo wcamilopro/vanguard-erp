@@ -1,86 +1,55 @@
 import streamlit as st
 
-# 1. Configuração da Página em Tela Cheia (Wide)
+# 1. Configuração Básica da Página
 st.set_page_config(
-    page_title="Vanguard | Sistemas de Gestão",
+    page_title="Vanguard | ERP",
     page_icon="🔷",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# 2. Estilo CSS Mínimo e Seguro (Apenas o essencial para não quebrar a nuvem)
-st.markdown("""
-<style>
-    /* Estilo geral de fundo */
-    .stApp {
-        background-color: #f8fafc;
-    }
-    /* Estilo do título da empresa */
-    .company-header {
-        font-size: 1.8rem;
-        font-weight: 800;
-        color: #0f172a;
-        margin-bottom: 0px;
-    }
-    .company-sub {
-        color: #64748b;
-        font-size: 0.85rem;
-        letter-spacing: 1px;
-        margin-bottom: 20px;
-    }
-    /* Estilo para a sidebar */
-    [data-testid="stSidebar"] {
-        background-color: #0f172a;
-    }
-    [data-testid="stSidebar"] * {
-        color: #f8fafc !important;
-    }
-</style>
-""", unsafe_allow_html=True)
-
-# 3. Estado de Sessão (Login)
+# 2. Estado de Sessão (Login)
 if "logged_in" not in st.session_state:
-    st.session_state.logged_in = True  # Mantém logado para visualização do painel
+    st.session_state.logged_in = True
 
-# --- TELA DE LOGIN ---
+# ==========================================
+# TELA DE LOGIN
+# ==========================================
 if not st.session_state.logged_in:
-    col1, col2, col3 = st.columns([1, 1.2, 1])
-    with col2:
-        st.markdown("<br><br>", unsafe_allow_html=True)
+    _, col_login, _ = st.columns([1, 1, 1])
+    
+    with col_login:
+        st.write("<br><br>", unsafe_allow_html=True)
         with st.container(border=True):
-            st.markdown("<h2 style='text-align: center; color: #1e293b;'>🔷 VANGUARD</h2>", unsafe_allow_html=True)
-            st.markdown("<p style='text-align: center; color: #64748b; font-size: 0.8rem;'>SISTEMAS DE GESTÃO</p>", unsafe_allow_html=True)
-            st.markdown("<p style='text-align: center; font-size: 0.8rem; color: #94a3b8;'>\"Controle absoluto. Operação simples.\"</p>", unsafe_allow_html=True)
+            st.markdown("<h2 style='text-align: center;'>🔷 VANGUARD</h2>", unsafe_allow_html=True)
+            st.markdown("<p style='text-align: center; color: gray;'>SISTEMAS DE GESTÃO</p>", unsafe_allow_html=True)
+            st.caption('*"Controle absoluto. Operação simples."*')
             
-            st.text_input("Usuário / Login", key="login_user")
-            st.text_input("Senha", type="password", key="login_pass")
+            st.text_input("Usuário / Login", key="input_user")
+            st.text_input("Senha", type="password", key="input_pass")
             
-            st.markdown("<br>", unsafe_allow_html=True)
-            if st.button("Entrar no Sistema", use_container_width=True, type="primary"):
+            st.write("")
+            if st.button("Entrar no Sistema", use_container_width=True):
                 st.session_state.logged_in = True
                 st.rerun()
 
-# --- TELA PRINCIPAL (LOGADO) ---
+# ==========================================
+# PAINEL PRINCIPAL (LOGADO)
+# ==========================================
 else:
-    # BARRA LATERAL (SIDEBAR)
+    # BARRA LATERAL (SIDEBAR NATIVA E LIMPA)
     with st.sidebar:
-        st.markdown("<h2 style='text-align: center; margin-bottom:0;'>🔷 VANGUARD</h2>", unsafe_allow_html=True)
-        st.markdown("<p style='text-align: center; font-size: 0.75rem; color: #94a3b8;'>SISTEMAS DE GESTÃO</p>", unsafe_allow_html=True)
+        st.title("🔷 VANGUARD")
+        st.caption("SISTEMAS DE GESTÃO")
         st.divider()
         
-        # Perfil
-        with st.container():
-            st.markdown("**Master - CMDTC SERVIÇOS LTDA**")
-            st.caption("@user | Setor: Diretoria")
-        
+        st.markdown("**Master - CMDTC SERVIÇOS LTDA**")
+        st.caption("Usuário: @user | Setor: Diretoria")
         st.divider()
-        st.markdown("**NAVEGAÇÃO**")
         
-        # Menu limpo usando Selectbox nativo (sem bolinhas feias de radio button)
-        menu = st.selectbox(
-            "Menu Principal",
-            ["• Boas-vindas", "Comercial", "Recursos Humanos", "Administrativo", "Financeiro"],
-            label_visibility="collapsed"
+        menu = st.radio(
+            "NAVEGAÇÃO",
+            ["Boas-vindas", "Comercial", "Recursos Humanos", "Administrativo", "Financeiro"]
         )
         
         st.divider()
@@ -88,79 +57,71 @@ else:
             st.session_state.logged_in = False
             st.rerun()
 
-    # ÁREA DE CONTEÚDO
-    if menu == "• Boas-vindas":
-        # Cabeçalho da Empresa
-        st.markdown("<div class='company-header'>🔷 VANGUARD</div>", unsafe_allow_html=True)
-        st.markdown("<div class='company-sub'>SISTEMAS DE GESTÃO — \"Controle absoluto. Operação simples.\"</div>", unsafe_allow_html=True)
-        
-        # 1. CARDS DE INDICADORES (NATIVOS - NUNCA SUMIRÃO)
-        kpi1, kpi2, kpi3, kpi4 = st.columns(4)
-        
-        with kpi1:
-            with st.container(border=True):
-                st.caption("STATUS DO PLANO")
-                st.markdown("### 🟢 ATIVO")
-                
-        with kpi2:
-            with st.container(border=True):
-                st.caption("MÓDULOS CONTRATADOS")
-                st.markdown("### 4 Módulos")
-                
-        with kpi3:
-            with st.container(border=True):
-                st.caption("VENCIMENTO")
-                st.markdown("### Dia 10")
-                
-        with kpi4:
-            with st.container(border=True):
-                st.caption("FORMA DE PAGAMENTO")
-                st.markdown("### Boleto Bancário")
+    # CONTEÚDO PRINCIPAL
+    if menu == "Boas-vindas":
+        st.title("🔷 VANGUARD ERP")
+        st.caption("Painel de Controle e Gestão Integrada")
+        st.write("")
 
-        st.markdown("<br>", unsafe_allow_html=True)
-        st.subheader("Módulos e Recursos Habilitados")
-        st.caption("Abaixo estão os acessos ativos para o perfil da sua empresa. Utilize o menu lateral para navegar.")
+        # 1. Indicadores Superiores (Componente Nativo st.metric)
+        k1, k2, k3, k4 = st.columns(4)
+        with k1:
+            st.metric(label="STATUS DO PLANO", value="🟢 ATIVO")
+        with k2:
+            st.metric(label="MÓDULOS CONTRATADOS", value="4 Módulos")
+        with k3:
+            st.metric(label="VENCIMENTO", value="Dia 10")
+        with k4:
+            st.metric(label="FORMA DE PAGAMENTO", value="Boleto")
 
-        # 2. CARDS DOS MÓDULOS (NATIVOS E ELEGANTES)
-        mod1, mod2, mod3 = st.columns(3)
+        st.write("")
+        st.divider()
+
+        # 2. Cards dos Módulos
+        st.subheader("Módulos Habilitados")
+        st.caption("Acessos disponíveis para o perfil da sua empresa:")
+        st.write("")
+
+        m1, m2, m3 = st.columns(3)
         
-        with mod1:
+        with m1:
             with st.container(border=True):
-                st.markdown("#### Módulo Comercial")
+                st.markdown("### 📈 Comercial")
                 st.write("Gestão de propostas, orçamentos, contratos e carteira de clientes.")
-                st.info("Disponível")
-                
-        with mod2:
+                st.success("Módulo Ativo")
+
+        with m2:
             with st.container(border=True):
-                st.markdown("#### Recursos Humanos (RH)")
+                st.markdown("### 👥 Recursos Humanos")
                 st.write("Gestão de colaboradores, equipes, cargos e contatos operacionais.")
-                st.info("Disponível")
-                
-        with mod3:
+                st.success("Módulo Ativo")
+
+        with m3:
             with st.container(border=True):
-                st.markdown("#### Central Administrativa")
-                st.write("Configurações do sistema, logo corporativa para laudos e gestão de acessos.")
-                st.info("Disponível")
+                st.markdown("### ⚙️ Administrativo")
+                st.write("Configurações do sistema, logo corporativa e gestão de acessos.")
+                st.success("Módulo Ativo")
 
-        st.markdown("<br>", unsafe_allow_html=True)
+        st.write("")
+        st.divider()
 
-        # 3. SEÇÃO DE AVISOS E SUPORTE
-        inf1, inf2 = st.columns([2, 1])
+        # 3. Informações de Rodapé
+        c_info1, c_info2 = st.columns([2, 1])
         
-        with inf1:
-            with st.container(border=True):
-                st.markdown("### 📢 Avisos & Atualizações do Sistema")
-                st.markdown("""
-                * **Personalização de Documentos:** Cadastre a logomarca da sua empresa no módulo Administrativo para aplicar nos relatórios.
-                * **Segurança da Conta:** Mantenha as senhas individuais dos usuários atualizadas e evite compartilhamento de logins.
-                """)
-            
-        with inf2:
-            with st.container(border=True):
-                st.markdown("### 🛠️ Atendimento e Suporte")
-                st.write("Precisa alterar seu plano ou adicionar novos usuários?")
-                st.code("suporte@vanguarderp.com.br")
+        with c_info1:
+            st.info("""
+            **📢 Avisos & Atualizações**
+            * **Personalização de Documentos:** Cadastre a logomarca da sua empresa no módulo Administrativo.
+            * **Segurança:** Mantenha as senhas individuais dos usuários sempre atualizadas.
+            """)
+
+        with c_info2:
+            st.success("""
+            **🛠️ Atendimento e Suporte**  
+            Dúvidas ou novos usuários?  
+            `suporte@vanguarderp.com.br`
+            """)
 
     else:
-        st.title(f"Módulo: {menu}")
-        st.info("Esta seção está pronta para receber as telas e funcionalidades específicas deste módulo.")
+        st.title(f"Módulo {menu}")
+        st.info("Área pronta para receber as telas de cadastro e tabelas deste módulo.")
