@@ -11,7 +11,7 @@ from core.estilos import (
     renderizar_card_usuario,
 )
 
-# Favicon Oficial Vanguard (Cinza Grafite para a aba do navegador)
+# Favicon com cinza grafite otimizado para a aba clara do navegador
 FAVICON_VANGUARD = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><path d='M20 4L36 32H27L20 18L13 32H4L20 4Z' fill='%231E40AF'/><path d='M20 18L26 32H21L20 29L19 32H14L20 18Z' fill='%23334155'/></svg>"
 
 st.set_page_config(
@@ -65,7 +65,7 @@ def modal_primeiro_acesso(username):
 
 
 def tela_login():
-    """Tela de Login Corporativa Vanguard."""
+    """Tela de Login Corporativa Vanguard (Fundo Escuro)."""
     aplicar_fundo_login()
 
     _, col_centro, _ = st.columns([1, 1.1, 1])
@@ -78,17 +78,17 @@ def tela_login():
                 <div style="text-align: center; margin-bottom: 20px;">
                     <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 4px;">
                         <svg width="38" height="38" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M20 4L36 32H27L20 18L13 32H4L20 4Z" fill="#1E40AF"/>
-                            <path d="M20 18L26 32H21L20 29L19 32H14L20 18Z" fill="#334155"/>
+                            <path d="M20 4L36 32H27L20 18L13 32H4L20 4Z" fill="#3B82F6"/>
+                            <path d="M20 18L26 32H21L20 29L19 32H14L20 18Z" fill="#FFFFFF"/>
                         </svg>
-                        <span style="font-size: 28px; font-weight: 800; color: #0F172A; letter-spacing: -1px; font-family: 'Segoe UI', sans-serif;">
+                        <span style="font-size: 28px; font-weight: 800; color: #FFFFFF; letter-spacing: -1px; font-family: 'Segoe UI', sans-serif;">
                             VANGUARD
                         </span>
                     </div>
-                    <div style="font-size: 10px; font-weight: 700; color: #1E40AF; text-transform: uppercase; letter-spacing: 2px;">
+                    <div style="font-size: 10px; font-weight: 700; color: #60A5FA; text-transform: uppercase; letter-spacing: 2px;">
                         SISTEMAS DE GESTÃO
                     </div>
-                    <div style="font-size: 12px; color: #475569; margin-top: 6px; font-style: italic;">
+                    <div style="font-size: 12px; color: #94A3B8; margin-top: 6px; font-style: italic;">
                         "Controle absoluto. Operação simples."
                     </div>
                 </div>
@@ -166,7 +166,7 @@ def main():
 
     # BARRA LATERAL
     with st.sidebar:
-        # CARD DE LOGO NO TOPO (Mantém branco pois o fundo da sidebar é escuro)
+        # CARD DE LOGO NO TOPO
         st.markdown(
             """
             <div style="background-color: #1E293B; padding: 12px; border-radius: 8px; border: 1px solid #334155; margin-bottom: 16px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
@@ -232,7 +232,7 @@ def main():
             st.session_state["modulo_ativo"] = "Boas-vindas"
             reexecutar()
 
-        # ASSINATURA DISCRETA NO RODAPÉ
+        # ASSINATURA NO RODAPÉ
         st.markdown(
             """
             <div style="margin-top: 35px; padding-top: 12px; border-top: 1px solid #1E293B; text-align: center;">
