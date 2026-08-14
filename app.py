@@ -68,11 +68,28 @@ def tela_login():
     """Tela de Login Corporativa Vanguard (Card destacado com botões padronizados)."""
     aplicar_fundo_login()
 
+    # CSS personalizado para controlar especificamente o fundo do Card de Login
+    st.markdown(
+        """
+        <style>
+        /* Alvo: O container do card de login central */
+        div[data-testid="column"] div[data-testid="stVerticalBlock"] {
+            background-color: #FFFFFF; /* Altere aqui o código da cor do card de login */
+            padding: 24px;
+            border-radius: 12px;
+            border: 1px solid #CBD5E1;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
     _, col_centro, _ = st.columns([1, 1.1, 1])
 
     with col_centro:
         st.markdown("<br>", unsafe_allow_html=True)
-        with st.container(border=True):
+        with st.container():
             # LOGOTIPO PADRONIZADO (Azul em cima e Cinza Claro em baixo)
             st.markdown(
                 """
@@ -82,14 +99,14 @@ def tela_login():
                             <path d="M20 4L36 32H27L20 18L13 32H4L20 4Z" fill="#3B82F6"/>
                             <path d="M20 18L26 32H21L20 29L19 32H14L20 18Z" fill="#E2E8F0"/>
                         </svg>
-                        <span style="font-size: 28px; font-weight: 800; color: #FFFFFF; letter-spacing: -1px; font-family: 'Segoe UI', sans-serif;">
+                        <span style="font-size: 28px; font-weight: 800; color: #0F172A; letter-spacing: -1px; font-family: 'Segoe UI', sans-serif;">
                             VANGUARD
                         </span>
                     </div>
-                    <div style="font-size: 10px; font-weight: 700; color: #60A5FA; text-transform: uppercase; letter-spacing: 2px;">
+                    <div style="font-size: 10px; font-weight: 700; color: #2563EB; text-transform: uppercase; letter-spacing: 2px;">
                         SISTEMAS DE GESTÃO
                     </div>
-                    <div style="font-size: 12px; color: #94A3B8; margin-top: 6px; font-style: italic;">
+                    <div style="font-size: 12px; color: #64748B; margin-top: 6px; font-style: italic;">
                         "Controle absoluto. Operação simples."
                     </div>
                 </div>
@@ -118,7 +135,7 @@ def tela_login():
                 else:
                     st.warning("Preencha todos os campos.")
 
-            # BOTÕES SECUNDÁRIOS DENTRO DO MESMO CARD (AGORA COM TYPE PRIMARY PARA FICAREM AZUIS)
+            # BOTÕES SECUNDÁRIOS DENTRO DO MESMO CARD
             st.markdown("<div style='margin-top: 10px;'></div>", unsafe_allow_html=True)
             col_b1, col_b2 = st.columns(2)
             with col_b1:
@@ -169,7 +186,6 @@ def main():
 
     # BARRA LATERAL
     with st.sidebar:
-        # LOGOTIPO PADRONIZADO NO TOPO DA SIDEBAR
         st.markdown(
             """
             <div style="background-color: #1E293B; padding: 12px; border-radius: 8px; border: 1px solid #334155; margin-bottom: 16px; text-align: center; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
@@ -235,7 +251,6 @@ def main():
             st.session_state["modulo_ativo"] = "Boas-vindas"
             reexecutar()
 
-        # ASSINATURA NO RODAPÉ
         st.markdown(
             """
             <div style="margin-top: 35px; padding-top: 12px; border-top: 1px solid #1E293B; text-align: center;">
