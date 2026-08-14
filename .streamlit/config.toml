@@ -1,6 +1,14 @@
-#[theme]
-#primaryColor = "#1E40AF"
-#backgroundColor = "#F8FAFC"
-#secondaryBackgroundColor = "#F1F5F9"
-#textColor = "#1E293B"
-#font = "sans serif"
+[theme]
+# Cor azul corporativa (substitui o botão vermelho)
+primaryColor = "#1E40AF"
+
+# Fundo geral da tela (Preto profundo que queríamos)
+backgroundColor = "#050810"
+
+# Fundo da barra lateral e dos Cards (Azul acinzentado, criando o contraste)
+secondaryBackgroundColor = "#1E293B"
+
+# Cor dos textos globais
+textColor = "#F8FAFC"
+
+font = "sans serif"
