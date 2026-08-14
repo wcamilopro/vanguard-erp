@@ -1,48 +1,58 @@
 import streamlit as st
 
 def aplicar_estilos_customizados():
-    """Estilos gerais do sistema."""
+    """Estilos gerais do sistema (Menu e páginas internas)."""
     st.markdown(
         """
         <style>
-            [data-testid="stSidebar"] { background-color: #0B1120 !important; }
-            .stApp { background-color: #050810 !important; }
+            /* Fundo geral da aplicação e sidebar */
+            [data-testid="stAppViewContainer"] { background-color: #050810 !important; }
+            [data-testid="stSidebar"] { background-color: #0B1120 !important; border-right: 1px solid #1E293B !important; }
+            [data-testid="stSidebar"] p, [data-testid="stSidebar"] span { color: #F8FAFC !important; }
         </style>
         """,
         unsafe_allow_html=True,
     )
 
 def aplicar_fundo_login():
-    """Reset total da tela de login para garantir o padrão visual."""
+    """Estilo exclusivo e cirúrgico para a tela de login."""
     st.markdown(
         """
         <style>
-            /* 1. Força o fundo da tela para preto profundo */
-            .stApp {
+            /* 1. FUNDO DA TELA GERAL (Preto/Azul muito escuro) */
+            [data-testid="stAppViewContainer"] {
                 background-color: #050810 !important;
             }
 
-            /* 2. Força o Card de Login para azul escuro sólido (diferente do fundo) */
-            [data-testid="stContainer"] {
+            /* 2. O CARD DO LOGIN (Azul acinzentado mais claro para destacar do fundo) */
+            /* stVerticalBlockBorderWrapper é a classe interna EXATA do st.container(border=True) */
+            [data-testid="stVerticalBlockBorderWrapper"] {
                 background-color: #1E293B !important;
                 border: 1px solid #334155 !important;
                 border-radius: 12px !important;
-                padding: 30px !important;
-                box-shadow: 0 10px 25px rgba(0,0,0,0.5) !important;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.8) !important;
             }
 
-            /* 3. Força TODOS os botões dentro do card a serem azuis corporativos */
-            [data-testid="stContainer"] button {
-                background-color: #1E40AF !important;
+            /* 3. CORES DOS TEXTOS DOS CAMPOS NO LOGIN */
+            [data-testid="stVerticalBlockBorderWrapper"] p {
+                color: #F8FAFC !important;
+            }
+
+            /* 4. TODOS OS BOTÕES DO LOGIN (Matando o vermelho e os brancos) */
+            [data-testid="stVerticalBlockBorderWrapper"] button {
+                background-color: #1E40AF !important; 
                 color: #FFFFFF !important;
-                border: none !important;
+                border: 1px solid #1D4ED8 !important;
                 border-radius: 6px !important;
                 font-weight: 600 !important;
+                padding-top: 10px !important;
+                padding-bottom: 10px !important;
             }
             
-            /* 4. Efeito de Hover */
-            [data-testid="stContainer"] button:hover {
+            /* 5. EFEITO AO PASSAR O MOUSE (Hover) */
+            [data-testid="stVerticalBlockBorderWrapper"] button:hover {
                 background-color: #1D4ED8 !important;
+                border: 1px solid #3B82F6 !important;
                 color: #FFFFFF !important;
             }
         </style>
