@@ -65,7 +65,7 @@ def tela_login():
 
     with col_centro:
         st.markdown("<br>", unsafe_allow_html=True)
-        # CARD ÚNICO DE LOGIN (SEM ELEMENTOS SOLTOS FORA)
+        # CARD ÚNICO DE LOGIN
         with st.container(border=True):
             # LOGO VETORIAL SVG CLEAN
             st.markdown(
@@ -126,20 +126,18 @@ def tela_login():
 def main():
     aplicar_estilos_customizados()
 
-    # 2. CSS CUSTOMIZADO: DESCOMPRIME A TELA E DEIXA O MENU COMPACTO (SEM ZOOM)
+    # CSS CUSTOMIZADO: DESCOMPRIME A TELA E AJUSTA O RESPIRO DO TOPO
     st.markdown(
         """
         <style>
-            /* Descomprime o container principal */
             .main .block-container {
-                padding-top: 1.2rem !important;
+                padding-top: 2.2rem !important;
                 padding-bottom: 2rem !important;
                 padding-left: 2rem !important;
                 padding-right: 2rem !important;
                 max-width: 98% !important;
             }
 
-            /* Compacta os botões do Menu Lateral (Reduz o "Zoom") */
             [data-testid="stSidebar"] [data-testid="stVerticalBlock"] > div {
                 gap: 0.35rem !important;
             }
@@ -151,7 +149,6 @@ def main():
                 border-radius: 6px !important;
             }
 
-            /* Garante texto branco e legível nos botões azuis principais */
             .stFormSubmitButton > button[kind="primary"],
             .stButton > button[kind="primary"] {
                 color: #FFFFFF !important;
@@ -226,7 +223,7 @@ def main():
             "Painel SaaS Master": ("Painel SaaS Master", "saas_master"),
         }
 
-        # MENU LATERAL COMPACTO
+        # MENU LATERAL
         for mod_key in modulos_permitidos:
             if mod_key in mapa_modulos:
                 label, _ = mapa_modulos[mod_key]
