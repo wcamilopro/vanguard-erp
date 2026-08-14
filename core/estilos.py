@@ -68,19 +68,25 @@ def aplicar_estilos_customizados():
     )
 
 def aplicar_fundo_login():
-    """Fundo elegante e destaque robusto para o card da tela de login."""
+    """Fundo escuro corporativo e card de login de alto contraste."""
     st.markdown(
         """
         <style>
+            /* Fundo geral escuro e elegante para a tela de login */
             .stApp {
-                background-color: #F1F5F9 !important;
+                background-color: #0F172A !important;
             }
-            /* Destaca o container de login para não sumir no fundo */
+            /* Card de login com fundo escuro sólido e borda nítida */
             [data-testid="stVerticalBlock"] > div:has([data-testid="stContainer"]) {
-                background-color: #FFFFFF !important;
+                background-color: #1E293B !important;
                 border-radius: 12px !important;
-                box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.08) !important;
-                border: 1px solid #E2E8F0 !important;
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.4) !important;
+                border: 1px solid #334155 !important;
+            }
+            /* Ajuste de cor das labels do formulário de login */
+            .stForm label p {
+                color: #F8FAFC !important;
+                font-weight: 600 !important;
             }
         </style>
         """,
