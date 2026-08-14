@@ -9,7 +9,7 @@ primaryColor = "#2563EB"
 backgroundColor = "#D1D5DB"
 
 # Fundo da barra lateral e dos campos de texto (Cinza-azulado discreto e elegante)
-secondaryBackgroundColor = "#1E293B"
+secondaryBackgroundColor = "#E5E7EB" #1E293B"
 
 # Cor padrão do texto (Branco suave para excelente legibilidade)
 textColor = "#F1F5F9"
