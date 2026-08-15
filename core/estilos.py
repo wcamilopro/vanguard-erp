@@ -89,7 +89,7 @@ def aplicar_fundo_login():
         <style>
             .stApp { 
                 /* Altere aqui o código da cor para um tom mais escuro, por exemplo: */
-                background-color: #E2E8F0 !important; 
+                background-color: #0F172A !important; 
             }
         </style>
         """,
