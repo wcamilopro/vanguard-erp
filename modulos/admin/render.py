@@ -28,7 +28,7 @@ def render():
         """
         <div style="padding: 10px 0;">
             <h2 style="color: #0F172A; margin: 0; font-family: 'Segoe UI', sans-serif;">⚙️ Central Administrativa & Licenciamento</h2>
-            <p style="color: #475569; font-size: 14px; margin-top: 5px;">Gestão de assinaturas, faturas, limites e dados da conta.</p>
+            <p style="color: #475569; font-size: 14px; margin-top: 5px;">Gestão de assinaturas, usuários, permissões, faturas e dados da conta.</p>
         </div>
         """,
         unsafe_allow_html=True,
@@ -58,9 +58,14 @@ def render():
 
     st.markdown("<br>", unsafe_allow_html=True)
 
-    # ABAS DE GESTÃO FINANCEIRA E DE DADOS
-    tab_faturas, tab_logo, tab_dados = st.tabs(
-        ["💳 Faturas & Boletos", "🖼️ Logo da Empresa", "🏢 Dados Cadastrais"]
+    # ABAS DE GESTÃO FINANCEIRA, USUÁRIOS E DADOS
+    tab_faturas, tab_usuarios, tab_logo, tab_dados = st.tabs(
+        [
+            "💳 Faturas & Boletos",
+            "👥 Gestão de Usuários & Senhas",
+            "🖼️ Logo da Empresa",
+            "🏢 Dados Cadastrais",
+        ]
     )
 
     with tab_faturas:
@@ -115,6 +120,100 @@ def render():
                     )
             st.markdown(
                 "<hr style='margin: 8px 0; border: 0; border-top: 1px solid #CBD5E1;'>",
+                unsafe_allow_html=True,
+            )
+
+    with tab_usuarios:
+        st.subheader("👥 Controle de Usuários e Privilégios")
+        st.markdown(
+            "<p style='color: #475569; font-size: 13px;'>Cadastre novos colaboradores, configure permissões de acesso aos módulos e gerencie o reset de senhas.</p>",
+            unsafe_allow_html=True,
+        )
+
+        with st.expander("➕ Cadastrar Novo Usuário", expanded=False):
+            with st.form("form_novo_usuario_admin"):
+                col_u1, col_u2 = st.columns(2)
+                with col_u1:
+                    novo_username = st.text_input("Nome de Usuário / Login")
+                    novo_setor = st.text_input("Setor / Função", value="Geral")
+                with col_u2:
+                    modulos_escolhidos = st.multiselect(
+                        "Módulos Permitidos",
+                        options=[
+                            "Comercial",
+                            "Recursos Humanos",
+                            "Técnico",
+                            "Financeiro",
+                            "Administrativo",
+                        ],
+                        default=["Comercial"],
+                    )
+
+                st.info(
+                    "🔑 **Regra de Segurança:** O usuário será cadastrado com a senha provisória padrão (**Trocar123**) e será obrigado a redefini-la no primeiro acesso."
+                )
+
+                btn_cadastrar_usuario = st.form_submit_button(
+                    "Salvar Novo Usuário", type="primary"
+                )
+
+                if btn_cadastrar_usuario:
+                    if novo_username:
+                        # Aqui você integrará com a função do banco que cadastra o usuário com primeiro_acesso = True e senha "Trocar123"
+                        st.success(
+                            f"Usuário '{novo_username}' cadastrado com sucesso! Senha provisória: `Trocar123`"
+                        )
+                    else:
+                        st.warning(
+                            "Por favor, informe o nome de usuário/login."
+                        )
+
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown("#### 📋 Usuários Ativos na Empresa")
+
+        # Exemplo simulado de listagem de usuários vinculados
+        usuarios_cadastrados = [
+            {
+                "username": "admin",
+                "setor": "Administrativo",
+                "status": "Ativo",
+                "primeiro_acesso": "Não",
+            },
+            {
+                "username": "joao.comercial",
+                "setor": "Comercial",
+                "status": "Ativo",
+                "primeiro_acesso": "Não",
+            },
+            {
+                "username": "maria.rh",
+                "setor": "Recursos Humanos",
+                "status": "Aguardando Troca",
+                "primeiro_acesso": "Sim",
+            },
+        ]
+
+        for u in usuarios_cadastrados:
+            col_info1, col_info2, col_info3, col_acao = st.columns(
+                [1.5, 1, 1, 1.5]
+            )
+            col_info1.markdown(
+                f"👤 **{u['username']}**<br><span style='font-size:11px; color:#64748B;'>Setor: {u['setor']}</span>",
+                unsafe_allow_html=True,
+            )
+            col_info2.markdown(f"Status: **{u['status']}**")
+            col_info3.markdown(f"Trocar Senha: **{u['primeiro_acesso']}**")
+
+            if col_acao.button(
+                f"🔄 Resetar Senha", key=f"reset_{u['username']}"
+            ):
+                # Aqui você chamará a função do banco para redefinir para "Trocar123" e setar primeiro_acesso = True
+                st.success(
+                    f"Senha de '{u['username']}' redefinida para 'Trocar123'. O usuário deverá trocá-la no próximo login."
+                )
+
+            st.markdown(
+                "<hr style='margin: 6px 0; border: 0; border-top: 1px solid #CBD5E1;'>",
                 unsafe_allow_html=True,
             )
 
