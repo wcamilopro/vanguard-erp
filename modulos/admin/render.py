@@ -2,30 +2,33 @@ import streamlit as st
 
 
 def render():
-    # Garante visibilidade total dos textos e métricas corrigindo o contraste do tema
+    # Estilo agressivo e isolado para garantir visibilidade total dos textos e métricas nesta tela
     st.markdown(
         """
         <style>
-            .main [data-testid="stMetricValue"], 
-            .main [data-testid="stMetricLabel"],
-            .main p, .main span, .main h1, .main h2, .main h3 {
+            /* Força todas as fontes, labels e valores de métricas para um tom escuro legível */
+            .main div[data-testid="stMetricValue"], 
+            .main div[data-testid="stMetricLabel"],
+            .main p, .main span, .main h1, .main h2, .main h3, .main label {
                 color: #0F172A !important;
             }
-            [data-testid="stMetricValue"] {
-                font-size: 24px !important;
+            /* Garante destaque correto nos valores das métricas */
+            div[data-testid="stMetricValue"] {
+                font-size: 26px !important;
                 font-weight: 700 !important;
+                color: #0F172A !important;
             }
         </style>
         """,
         unsafe_allow_html=True,
     )
 
-    # Cabeçalho limpo com espaçamento adequado
+    # Cabeçalho da Central Administrativa
     st.markdown(
         """
         <div style="padding: 10px 0;">
             <h2 style="color: #0F172A; margin: 0; font-family: 'Segoe UI', sans-serif;">⚙️ Central Administrativa & Licenciamento</h2>
-            <p style="color: #64748B; font-size: 14px; margin-top: 5px;">Gestão de assinaturas, faturas, limites e dados da conta.</p>
+            <p style="color: #475569; font-size: 14px; margin-top: 5px;">Gestão de assinaturas, faturas, limites e dados da conta.</p>
         </div>
         """,
         unsafe_allow_html=True,
@@ -63,7 +66,7 @@ def render():
     with tab_faturas:
         st.subheader("📄 Histórico de Faturas & Pagamentos")
         st.markdown(
-            "<p style='color: #64748B; font-size: 13px;'>Acompanhe o status dos pagamentos mensais da sua assinatura.</p>",
+            "<p style='color: #475569; font-size: 13px;'>Acompanhe o status dos pagamentos mensais da sua assinatura.</p>",
             unsafe_allow_html=True,
         )
 
@@ -95,12 +98,12 @@ def render():
 
                 if fat["Status"] == "Pago":
                     col_stat.markdown(
-                        "<span style='color: #10B981; font-weight: 600;'>🟢 Pago</span>",
+                        "<span style='color: #059669; font-weight: 600;'>🟢 Pago</span>",
                         unsafe_allow_html=True,
                     )
                 else:
                     col_stat.markdown(
-                        "<span style='color: #F59E0B; font-weight: 600;'>🟡 A Vencer</span>",
+                        "<span style='color: #D97706; font-weight: 600;'>🟡 A Vencer</span>",
                         unsafe_allow_html=True,
                     )
 
@@ -111,7 +114,7 @@ def render():
                         f"Simulação: Gerando PDF referente à fatura {fat['Ref']}..."
                     )
             st.markdown(
-                "<hr style='margin: 8px 0; border: 0; border-top: 1px solid #E2E8F0;'>",
+                "<hr style='margin: 8px 0; border: 0; border-top: 1px solid #CBD5E1;'>",
                 unsafe_allow_html=True,
             )
 
