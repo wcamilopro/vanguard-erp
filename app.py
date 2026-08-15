@@ -65,7 +65,7 @@ def modal_primeiro_acesso(username):
 
 
 def tela_login():
-    """Tela de Login Corporativa Vanguard com CSS 100% isolado (sem vazar para o ERP)."""
+    """Tela de Login Corporativa Vanguard limpa e sem atalhos externos."""
     aplicar_fundo_login()    
 
     st.markdown(
@@ -135,23 +135,13 @@ def tela_login():
                 else:
                     st.warning("Preencha todos os campos.")
 
-        st.markdown("<div style='margin-top: 10px;'></div>", unsafe_allow_html=True)
-
-        col_b1, col_b2 = st.columns(2)
-        with col_b1:
-            if st.button("Solicitar Cadastro", key="btn_solic_cad", use_container_width=True):
-                st.info("Fale com o comercial: (11) 99999-8888.")
-        with col_b2:
-            if st.button("Esqueci a Senha", key="btn_esq_senha", use_container_width=True):
-                st.info("Solicite o reset ao administrador.")
-
         st.markdown("</div>", unsafe_allow_html=True)
 
 
 def main():
     aplicar_estilos_customizados()
 
-    # Se NÃO estiver logado, exibe a tela de login unificada e para a execução aqui
+    # Se NÃO estiver logado, exibe a tela de login limpa e para a execução aqui
     if not st.session_state["usuario_logado"]:
         tela_login()
         return
