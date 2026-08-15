@@ -2,17 +2,17 @@ import streamlit as st
 
 
 def aplicar_estilos_customizados():
-    """CSS geral do sistema - Separando a Barra Lateral (Menu) dos Cards."""
+    """CSS geral do sistema (Menu lateral e painel administrativo)."""
     st.markdown(
         """
         <style>
-            /* 1. Ocultação de elementos padrão e fundo geral */
+            /* Elementos padrão do Streamlit */
             .block-container { padding-top: 2rem !important; }
             header { visibility: hidden !important; }
             #MainMenu { visibility: hidden !important; }
             .main { background-color: #F0F4F8 !important; }
 
-            /* 2. ISOLAMENTO DO MENU LATERAL (SIDEBAR ESCURO EXCLUSIVO) */
+            /* MENU LATERAL (SIDEBAR ESCURO EXCLUSIVO) */
             section[data-testid="stSidebar"] {
                 background-color: #0F172A !important;
                 border-right: 1px solid #1E293B !important;
@@ -47,8 +47,7 @@ def aplicar_estilos_customizados():
                 font-weight: 700 !important;
             }
 
-            /* 3. CORREÇÃO CRUCIAL DOS INPUTS (LOGIN E FORMULÁRIOS) */
-            /* Garante borda visível, fundo branco limpo e texto escuro nos inputs */
+            /* INPUTS E FORMULÁRIOS DA TELA PRINCIPAL */
             .stTextInput input, .stPasswordInput input, .stNumberInput input, .stSelectbox select {
                 background-color: #FFFFFF !important;
                 color: #0F172A !important;
@@ -56,20 +55,12 @@ def aplicar_estilos_customizados():
                 border-radius: 6px !important;
             }
 
-            /* Contêiner interno do elemento do Streamlit para contornar o efeito "invisível" */
             div[data-baseweb="input"] {
                 background-color: #FFFFFF !important;
                 border: 1px solid #CBD5E1 !important;
                 border-radius: 6px !important;
             }
 
-            /* Foco no input (quando o usuário clica para digitar) */
-            div[data-baseweb="input"]:focus-within {
-                border-color: #2563EB !important;
-                box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2) !important;
-            }
-
-            /* Cards, Caixas de Diálogo (Modais) e Formulários */
             div[data-testid="stForm"], 
             div[data-testid="stDialog"],
             div[data-baseweb="modal"] {
@@ -81,32 +72,36 @@ def aplicar_estilos_customizados():
         unsafe_allow_html=True,
     )
 
+
 def aplicar_fundo_login():
-    """Define o estilo de fundo exclusivo para a tela de login."""
+    """Define o estilo de fundo e contraste perfeito para a tela de login."""
     st.markdown(
         """
         <style>
-            /* Força o fundo escuro/cinza em todos os containers da tela de login */
+            /* Fundo suave que destaca a logo branca/azul perfeitamente */
             .stApp, [data-testid="stAppViewContainer"], .main { 
                 background-color: #E2E8F0 !important; 
             }
             
-            /* Garante que o container central de login fique em destaque com fundo branco */
+            /* Cartão central do formulário de login bem destacado */
             div[data-testid="stForm"] {
                 background-color: #FFFFFF !important;
-                border: 1px solid #334155 !important;
-                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3) !important;
-                border-radius: 10px !important;
+                border: 1px solid #CBD5E1 !important;
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1) !important;
+                border-radius: 12px !important;
+                padding: 10px !important;
             }
-            
-            /* Textos dentro da tela de login para ficarem legíveis caso fiquem fora do form */
-            h1, h2, h3, p, label {
-                color: #F8FAFC !important;
+
+            /* Garante que os rótulos (labels) dos inputs de login fiquem escuros e legíveis */
+            .stTextInput label, .stPasswordInput label {
+                color: #334155 !important;
+                font-weight: 600 !important;
             }
         </style>
         """,
         unsafe_allow_html=True,
     )
+
 
 def renderizar_card_usuario(nome_empresa, usuario, setor):
     """Renderiza o cartão do usuário na barra lateral."""
