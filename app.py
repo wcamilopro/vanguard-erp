@@ -2,14 +2,16 @@ import importlib
 import streamlit as st
 from core.db import (
     alterar_senha_primeiro_acesso_db,
+    autenticar_usuario,
     init_db,
 )
 from core.estilos import (
     aplicar_estilos_customizados,
+    aplicar_fundo_login,
     renderizar_card_usuario,
 )
 
-# Favicon Oficial Vanguard (Azul em cima e Cinza Claro em baixo)
+# Favicon Oficial Vanguard
 FAVICON_VANGUARD = "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><path d='M20 4L36 32H27L20 18L13 32H4L20 4Z' fill='%233B82F6'/><path d='M20 18L26 32H21L20 29L19 32H14L20 18Z' fill='%23E2E8F0'/></svg>"
 
 st.set_page_config(
@@ -62,8 +64,103 @@ def modal_primeiro_acesso(username):
                     st.error("Erro ao atualizar a senha. Tente novamente.")
 
 
+def tela_login():
+    """Tela de Login Corporativa Vanguard isolada e customizada."""
+    aplicar_fundo_login()
+
+    st.markdown(
+        """
+        <style>
+            .card-login {
+                background-color: #FFFFFF !important;
+                padding: 24px !important;
+                border-radius: 12px !important;
+                border: 1px solid #CBD5E1 !important;
+                box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1) !important;
+            }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    _, col_centro, _ = st.columns([1, 1.1, 1])
+
+    with col_centro:
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        with st.container():
+            st.markdown("<div class='card-login'>", unsafe_allow_html=True)
+
+            st.markdown(
+                """
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 4px;">
+                        <svg width="38" height="38" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20 4L36 32H27L20 18L13 32H4L20 4Z" fill="#3B82F6"/>
+                            <path d="M20 18L26 32H21L20 29L19 32H14L20 18Z" fill="#E2E8F0"/>
+                        </svg>
+                        <span style="font-size: 28px; font-weight: 800; color: #0F172A; letter-spacing: -1px; font-family: 'Segoe UI', sans-serif;">
+                            VANGUARD
+                        </span>
+                    </div>
+                    <div style="font-size: 10px; font-weight: 700; color: #2563EB; text-transform: uppercase; letter-spacing: 2px;">
+                        SISTEMAS DE GESTÃO
+                    </div>
+                    <div style="font-size: 12px; color: #64748B; margin-top: 6px; font-style: italic;">
+                        "Controle absoluto. Operação simples."
+                    </div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+
+            usuario_input = st.text_input("Usuário / Login", key="login_usuario")
+            senha_input = st.text_input("Senha", type="password", key="login_senha")
+
+            st.markdown("<div style='margin-top: 10px;'></div>", unsafe_allow_html=True)
+            submit = st.button("Entrar no Sistema", use_container_width=True, type="primary", key="btn_entrar_sistema")
+
+            if submit:
+                if usuario_input and senha_input:
+                    res = autenticar_usuario(usuario_input, senha_input)
+
+                    if res == "BLOQUEADO":
+                        st.error("🚫 Acesso Suspenso. Entre em contato com o suporte financeiro.")
+                    elif res:
+                        st.session_state["usuario_logado"] = res
+                        st.session_state["modulo_ativo"] = "Boas-vindas"
+                        reexecutar()
+                    else:
+                        st.error("Usuário ou senha incorretos.")
+                else:
+                    st.warning("Preencha todos os campos.")
+
+            st.markdown("<div style='margin-top: 10px;'></div>", unsafe_allow_html=True)
+
+            col_b1, col_b2 = st.columns(2)
+            with col_b1:
+                if st.button("Solicitar Cadastro", key="btn_solicitar_cad", use_container_width=True):
+                    st.info("Fale com o comercial: (11) 99999-8888.")
+            with col_b2:
+                if st.button("Esqueci a Senha", key="btn_esqueci_senha", use_container_width=True):
+                    st.info("Solicite o reset ao administrador da conta.")
+
+            st.markdown("</div>", unsafe_allow_html=True)
+
+
 def main():
     aplicar_estilos_customizados()
+
+    # Se NÃO estiver logado, exibe a tela de login customizada e para a execução aqui
+    if not st.session_state["usuario_logado"]:
+        tela_login()
+        return
+
+    usuario = st.session_state["usuario_logado"]
+
+    if usuario.get("primeiro_acesso", False):
+        modal_primeiro_acesso(usuario["username"])
+        return
 
     st.markdown(
         """
@@ -71,7 +168,7 @@ def main():
             .main .block-container {
                 padding-top: 2.2rem !important;
                 padding-bottom: 2rem !important;
-                padding-left: 2rem !important;
+                padding-left: 2.2rem !important;
                 padding-right: 2rem !important;
                 max-width: 98% !important;
             }
@@ -89,17 +186,6 @@ def main():
         """,
         unsafe_allow_html=True,
     )
-
-    # Se não houver usuário logado, em vez da tela de login, avisamos que o acesso deve ser feito pela página de login dedicada.
-    if not st.session_state["usuario_logado"]:
-        st.warning("⚠️ Acesso restrito. Por favor, utilize o aplicativo/tela de login para acessar o sistema.")
-        st.stop()
-
-    usuario = st.session_state["usuario_logado"]
-
-    if usuario.get("primeiro_acesso", False):
-        modal_primeiro_acesso(usuario["username"])
-        return
 
     # BARRA LATERAL
     with st.sidebar:
