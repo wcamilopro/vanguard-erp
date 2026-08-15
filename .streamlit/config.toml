@@ -12,6 +12,6 @@ backgroundColor = "#F0F4F8"
 secondaryBackgroundColor = "#1E293B"
 
 # Cor do texto (Preto/Cinza escuro para legibilidade no fundo claro)
-textColor = "#0F172A"
+textColor = "#FFFFFF" #(branco) #0F172A"
 
 font = "sans serif"
