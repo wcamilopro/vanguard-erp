@@ -74,19 +74,23 @@ with col_centro:
                 if res == "BLOQUEADO":
                     st.error("🚫 Acesso Suspenso. Entre em contato com o suporte financeiro.")
                 elif res:
-                    st.success("🎉 Login aprovado com sucesso!")
-                    st.info("Clique no botão abaixo para abrir o seu ERP:")
-                    
-                    # ⚠️ URL exata do seu app principal no Streamlit Cloud
-                    url_do_erp = "https://vanguard-erp.streamlit.app"
-                    
-                    st.markdown(
-                        f'<a href="{url_do_erp}" target="_self"><button style="width:100%; background-color:#2563EB; color:white; padding:12px; border:none; border-radius:6px; font-weight:bold; cursor:pointer; margin-top:10px;">ACESSAR SISTEMA ERP</button></a>',
-                        unsafe_allow_html=True,
-                    )
+                    st.session_state["usuario_logado"] = res
+                    st.success("Login aprovado com sucesso!")
                 else:
                     st.error("Usuário ou senha incorretos.")
             else:
                 st.warning("Preencha todos os campos.")
+
+    # Se o usuário já estiver logado na sessão do login, exibe o botão nativo oficial do Streamlit
+    if st.session_state.get("usuario_logado"):
+        st.markdown("<div style='margin-top: 15px;'></div>", unsafe_allow_html=True)
+        st.info("Clique no botão abaixo para abrir o seu ERP principal:")
+        
+        # Componente nativo do Streamlit para abrir links externos de forma segura
+        st.link_button(
+            label="🚀 ACESSAR SISTEMA ERP", 
+            url="https://vanguard-erp.streamlit.app", 
+            use_container_width=True
+        )
 
     st.markdown("</div>", unsafe_allow_html=True)
