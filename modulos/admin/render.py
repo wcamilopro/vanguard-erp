@@ -2,39 +2,38 @@ import streamlit as st
 
 
 def render():
-    st.title("⚙️ Central Administrativa & Licenciamento")
-    st.caption("Gestão de assinaturas, faturas, limites e dados da conta.")
+    # Cabeçalho limpo com espaçamento adequado
+    st.markdown(
+        """
+        <div style="padding: 10px 0;">
+            <h2 style="color: #0F172A; margin: 0; font-family: 'Segoe UI', sans-serif;">⚙️ Central Administrativa & Licenciamento</h2>
+            <p style="color: #64748B; font-size: 14px; margin-top: 5px;">Gestão de assinaturas, faturas, limites e dados da conta.</p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
     st.markdown("---")
 
     # DADOS DA SESSÃO
-    empresa_nome = st.session_state.get("empresa_nome", "Master - CMDTCSERVIÇOS LTDA")
+    empresa_nome = st.session_state.get(
+        "empresa_nome", "Master - CMDTCSERVIÇOS LTDA"
+    )
 
-    # RESUMO DO PLANO E LICENÇA
+    # RESUMO DO PLANO E LICENÇA (Com colunas estruturadas)
     c1, c2, c3, c4 = st.columns(4)
 
     with c1:
         st.metric(
-            label="Plano Ativo",
-            value="Enterprise Pro",
-            delta="SaaS Unlimited",
+            label="Plano Ativo", value="Enterprise Pro", delta="SaaS Unlimited"
         )
     with c2:
         st.metric(
-            label="Valor Mensal",
-            value="R$ 490,00",
-            delta="Venc. Dia 10",
+            label="Valor Mensal", value="R$ 490,00", delta="Venc. Dia 10"
         )
     with c3:
-        st.metric(
-            label="Situação",
-            value="🟢 Ativo",
-            delta_color="normal",
-        )
+        st.metric(label="Situação", value="Ativo", delta="Regular")
     with c4:
-        st.metric(
-            label="Forma Pagamento",
-            value="Boleto / PIX",
-        )
+        st.metric(label="Forma Pagamento", value="Boleto / PIX")
 
     st.markdown("<br>", unsafe_allow_html=True)
 
@@ -45,6 +44,10 @@ def render():
 
     with tab_faturas:
         st.subheader("📄 Histórico de Faturas & Pagamentos")
+        st.markdown(
+            "<p style='color: #64748B; font-size: 13px;'>Acompanhe o status dos pagamentos mensais da sua assinatura.</p>",
+            unsafe_allow_html=True,
+        )
 
         faturas = [
             {
@@ -64,28 +67,40 @@ def render():
         ]
 
         for fat in faturas:
-            col_ref, col_venc, col_val, col_stat, col_btn = st.columns(
-                [1, 1.2, 1, 1.2, 1.5]
+            with st.container():
+                col_ref, col_venc, col_val, col_stat, col_btn = st.columns(
+                    [1, 1.2, 1, 1.2, 1.5]
+                )
+                col_ref.markdown(f"**Ref:** {fat['Ref']}")
+                col_venc.markdown(f"{fat['Vencimento']}")
+                col_val.markdown(f"**{fat['Valor']}**")
+
+                if fat["Status"] == "Pago":
+                    col_stat.markdown(
+                        "<span style='color: #10B981; font-weight: 600;'>🟢 Pago</span>",
+                        unsafe_allow_html=True,
+                    )
+                else:
+                    col_stat.markdown(
+                        "<span style='color: #F59E0B; font-weight: 600;'>🟡 A Vencer</span>",
+                        unsafe_allow_html=True,
+                    )
+
+                if col_btn.button(
+                    f"📄 {fat['Acao']}", key=f"btn_fat_{fat['Ref']}"
+                ):
+                    st.info(
+                        f"Simulação: Gerando PDF referente à fatura {fat['Ref']}..."
+                    )
+            st.markdown(
+                "<hr style='margin: 8px 0; border: 0; border-top: 1px solid #E2E8F0;'>",
+                unsafe_allow_html=True,
             )
-            col_ref.write(f"**Ref:** {fat['Ref']}")
-            col_venc.write(fat["Vencimento"])
-            col_val.write(fat["Valor"])
-
-            if fat["Status"] == "Pago":
-                col_stat.success("🟢 Pago")
-            else:
-                col_stat.warning("🟡 A Vencer")
-
-            if col_btn.button(
-                f"📄 {fat['Acao']}", key=f"btn_fat_{fat['Ref']}"
-            ):
-                st.info(f"Simulação: Gerando PDF referente à fatura {fat['Ref']}...")
 
     with tab_logo:
         st.subheader("🎨 Personalização de Logomarca")
         uploaded_logo = st.file_uploader(
-            "Envie a logo da empresa (PNG ou JPG)",
-            type=["png", "jpg", "jpeg"],
+            "Envie a logo da empresa (PNG ou JPG)", type=["png", "jpg", "jpeg"]
         )
         if uploaded_logo is not None:
             st.image(
@@ -93,7 +108,7 @@ def render():
                 width=180,
                 caption="Pré-visualização da Logo",
             )
-            if st.button("💾 Salvar Logomarca"):
+            if st.button("💾 Salvar Logomarca", type="primary"):
                 st.success("Logo salva com sucesso!")
 
     with tab_dados:
@@ -101,3 +116,5 @@ def render():
         st.text_input("Razão Social", value=empresa_nome)
         st.text_input("CNPJ", value="00.000.000/0001-00")
         st.text_input("E-mail Financeiro", value="financeiro@empresa.com.br")
+        if st.button("💾 Atualizar Dados", type="primary"):
+            st.success("Dados cadastrais atualizados com sucesso!")
