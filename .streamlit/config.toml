@@ -1,7 +1,7 @@
 [theme]
 base = "light"
 primaryColor = "#2563EB"
-backgroundColor = "#F0F4F8"
-secondaryBackgroundColor = "#FFFFFF"
-textColor = "#0F172A"
+backgroundColor = "#F0F4F8"          # Fundo geral da página (Cinza suave)
+secondaryBackgroundColor = "#FFFFFF" # Fundo interno de cards, formulários e modais
+textColor = "#0F172A"                 # Cor dos textos principais
 font = "sans serif"
