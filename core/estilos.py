@@ -5,29 +5,31 @@ def aplicar_estilos_customizados():
     st.markdown(
         """
         <style>
+            /* Ajuste de container e ocultação de elementos padrão */
             .block-container { padding-top: 2rem !important; }
             header { visibility: hidden !important; }
             #MainMenu { visibility: hidden !important; }
+            
+            /* Garante que o fundo da aplicação siga o padrão definido no config.toml */
+            .stApp { background-color: #F0F4F8 !important; }
         </style>
         """,
         unsafe_allow_html=True,
     )
 
 def aplicar_fundo_login():
-    """Define o estilo de fundo exclusivo para a tela de login."""
+    """Define o estilo de fundo específico para a tela de login."""
     st.markdown(
         """
         <style>
-            .stApp {
-                background-color: #F8FAFC !important; /* Cor de fundo suave padrão */
-            }
+            .stApp { background-color: #F8FAFC !important; }
         </style>
         """,
         unsafe_allow_html=True,
     )
 
 def renderizar_card_usuario(nome_empresa, usuario, setor):
-    """Renderiza o cartão do usuário na barra lateral."""
+    """Renderiza o cartão do usuário na barra lateral (Mantido conforme original)."""
     st.markdown(
         f"""
         <div style="background-color: #0F172A; padding: 14px; border-radius: 8px; border: 1px solid #334155; margin-bottom: 20px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2);">
