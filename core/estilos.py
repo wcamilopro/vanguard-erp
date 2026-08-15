@@ -87,7 +87,10 @@ def aplicar_fundo_login():
     st.markdown(
         """
         <style>
-            .stApp { background-color: #F8FAFC !important; }
+            .stApp { 
+                /* Altere aqui o código da cor para um tom mais escuro, por exemplo: */
+                background-color: #E2E8F0 !important; 
+            }
         </style>
         """,
         unsafe_allow_html=True,
