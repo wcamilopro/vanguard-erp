@@ -68,7 +68,6 @@ def tela_login():
     """Tela de Login Corporativa Vanguard com CSS 100% isolado (sem vazar para o ERP)."""
     aplicar_fundo_login()
 
-    # CSS estritamente encapsulado na classe .vanguard-login-isolado
     st.markdown(
         """
         <style>
@@ -152,7 +151,7 @@ def tela_login():
 def main():
     aplicar_estilos_customizados()
 
-    # Se NÃO estiver logado, exibe a tela de login unificada e segura
+    # Se NÃO estiver logado, exibe a tela de login unificada e para a execução aqui
     if not st.session_state["usuario_logado"]:
         tela_login()
         return
