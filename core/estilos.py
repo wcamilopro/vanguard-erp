@@ -88,7 +88,7 @@ def aplicar_fundo_login():
         <style>
             /* Força o fundo escuro/cinza em todos os containers da tela de login */
             .stApp, [data-testid="stAppViewContainer"], .main { 
-                background-color: #0F172A !important; 
+                background-color: #E2E8F0 !important; 
             }
             
             /* Garante que o container central de login fique em destaque com fundo branco */
