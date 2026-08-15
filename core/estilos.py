@@ -1,7 +1,7 @@
 import streamlit as st
 
 def aplicar_estilos_customizados():
-    """CSS apenas para estruturação. As cores vêm do config.toml."""
+    """CSS geral do sistema."""
     st.markdown(
         """
         <style>
@@ -14,8 +14,17 @@ def aplicar_estilos_customizados():
     )
 
 def aplicar_fundo_login():
-    """Mantido apenas para compatibilidade de importação no app.py"""
-    pass
+    """Define o estilo de fundo exclusivo para a tela de login."""
+    st.markdown(
+        """
+        <style>
+            .stApp {
+                background-color: #F8FAFC !important; /* Cor de fundo suave padrão */
+            }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
 
 def renderizar_card_usuario(nome_empresa, usuario, setor):
     """Renderiza o cartão do usuário na barra lateral."""
