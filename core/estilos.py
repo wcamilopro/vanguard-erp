@@ -80,7 +80,7 @@ def aplicar_fundo_login():
         <style>
             /* Fundo suave que destaca a logo branca/azul perfeitamente */
             .stApp, [data-testid="stAppViewContainer"], .main { 
-                background-color: #334155 !important;  #(#E2E8F0)
+                background-color: #475569 !important;  #(#E2E8F0)
             }
             
             /* Cartão central do formulário de login bem destacado */
