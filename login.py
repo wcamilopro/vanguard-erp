@@ -79,14 +79,14 @@ with col_centro:
                     if res == "BLOQUEADO":
                         st.error("🚫 Acesso Suspenso. Entre em contato com o suporte financeiro.")
                     elif res:
-                        # Salva os dados do usuário na sessão do navegador
-                        st.session_state["usuario_logado"] = res
-                        st.success("Login realizado com sucesso! Redirecionando...")
+                        st.success("🎉 Login realizado com sucesso!")
+                        st.info("Clique no botão abaixo para abrir o seu ERP principal:")
                         
-                        # Redireciona para o app principal (substitua pela sua URL do Streamlit Cloud quando publicar)
-                        # Localmente: http://localhost:8501/ (ou o endereço do seu app principal)
+                        # ⚠️ SUBSTITUA O LINK ABAIXO PELO LINK REAL DO SEU APP PRINCIPAL (app.py) NO STREAMLIT CLOUD
+                        url_do_erp = "https://SEU-APP-PRINCIPAL.streamlit.app"
+                        
                         st.markdown(
-                            '<meta http-equiv="refresh" content="1;url=http://localhost:8501/">',
+                            f'<a href="{url_do_erp}" target="_self"><button style="width:100%; background-color:#2563EB; color:white; padding:10px; border:none; border-radius:5px; font-weight:bold; cursor:pointer;">ACESSAR SISTEMA ERP</button></a>',
                             unsafe_allow_html=True,
                         )
                     else:
