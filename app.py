@@ -66,22 +66,22 @@ def modal_primeiro_acesso(username):
 
 def tela_login():
     """Tela de Login Corporativa Vanguard com CSS 100% isolado (sem vazar para o ERP)."""
-    aplicar_fundo_login()
+    aplicar_fundo_login()    
 
     st.markdown(
-        """
-        <style>
-            .vanguard-login-isolado {
-                background-color: #FFFFFF !important;
-                padding: 32px !important;
-                border-radius: 12px !important;
-                border: 1px solid #CBD5E1 !important;
-                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1) !important;
-            }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
+    """
+    <style>
+        /* Força fundo limpo e centralizado no Login */
+        [data-testid="stAppViewContainer"] {
+            background-color: #F8FAFC;
+        }
+        [data-testid="stHeader"] {
+            background: transparent;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
     _, col_centro, _ = st.columns([1, 1.2, 1])
 
