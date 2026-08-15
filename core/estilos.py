@@ -81,21 +81,32 @@ def aplicar_estilos_customizados():
         unsafe_allow_html=True,
     )
 
-
 def aplicar_fundo_login():
-    """Define o estilo de fundo específico para a tela de login."""
+    """Define o estilo de fundo exclusivo para a tela de login."""
     st.markdown(
         """
         <style>
-            .stApp { 
-                /* Altere aqui o código da cor para um tom mais escuro, por exemplo: */
+            /* Força o fundo escuro/cinza em todos os containers da tela de login */
+            .stApp, [data-testid="stAppViewContainer"], .main { 
                 background-color: #0F172A !important; 
+            }
+            
+            /* Garante que o container central de login fique em destaque com fundo branco */
+            div[data-testid="stForm"] {
+                background-color: #FFFFFF !important;
+                border: 1px solid #334155 !important;
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3) !important;
+                border-radius: 10px !important;
+            }
+            
+            /* Textos dentro da tela de login para ficarem legíveis caso fiquem fora do form */
+            h1, h2, h3, p, label {
+                color: #F8FAFC !important;
             }
         </style>
         """,
         unsafe_allow_html=True,
     )
-
 
 def renderizar_card_usuario(nome_empresa, usuario, setor):
     """Renderiza o cartão do usuário na barra lateral."""
