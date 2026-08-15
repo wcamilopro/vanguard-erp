@@ -4,15 +4,23 @@ import streamlit as st
 def render():
     # Cabeçalho limpo com espaçamento adequado
     st.markdown(
-        """
-        <div style="padding: 10px 0;">
-            <h2 style="color: #0F172A; margin: 0; font-family: 'Segoe UI', sans-serif;">⚙️ Central Administrativa & Licenciamento</h2>
-            <p style="color: #64748B; font-size: 14px; margin-top: 5px;">Gestão de assinaturas, faturas, limites e dados da conta.</p>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
-    st.markdown("---")
+    """
+    <style>
+        /* Força a cor dos textos principais e métricas para escuro na área administrativa */
+        .main [data-testid="stMetricValue"], 
+        .main [data-testid="stMetricLabel"],
+        .main p, .main span, .main h1, .main h2, .main h3 {
+            color: #0F172A !important;
+        }
+        /* Ajuste específico para os valores das métricas */
+        [data-testid="stMetricValue"] {
+            font-size: 24px !important;
+            font-weight: 700 !important;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 
     # DADOS DA SESSÃO
     empresa_nome = st.session_state.get(
