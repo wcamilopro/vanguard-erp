@@ -14,7 +14,7 @@ st.set_page_config(
 init_db()
 aplicar_fundo_login()
 
-# CSS 100% isolado apenas para a tela de login
+# Estilo isolado exclusivamente para o card de login
 st.markdown(
     """
     <style>
@@ -74,14 +74,14 @@ with col_centro:
                 if res == "BLOQUEADO":
                     st.error("🚫 Acesso Suspenso. Entre em contato com o suporte financeiro.")
                 elif res:
-                    st.session_state["usuario_logado"] = res
-                    st.success("Login aprovado com sucesso!")
+                    st.success("🎉 Login aprovado com sucesso!")
+                    st.info("Clique no botão abaixo para abrir o seu ERP:")
                     
-                    # Substitua pelo link real do seu app.py no Streamlit Cloud
+                    # ⚠️ URL exata do seu app principal no Streamlit Cloud
                     url_do_erp = "https://vanguard-erp.streamlit.app"
                     
                     st.markdown(
-                        f'<a href="{url_do_erp}" target="_self"><button style="width:100%; background-color:#2563EB; color:white; padding:12px; border:none; border-radius:6px; font-weight:bold; cursor:pointer; margin-top:10px;">ACESSAR O ERP AGORA</button></a>',
+                        f'<a href="{url_do_erp}" target="_self"><button style="width:100%; background-color:#2563EB; color:white; padding:12px; border:none; border-radius:6px; font-weight:bold; cursor:pointer; margin-top:10px;">ACESSAR SISTEMA ERP</button></a>',
                         unsafe_allow_html=True,
                     )
                 else:
