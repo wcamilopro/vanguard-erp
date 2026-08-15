@@ -2,10 +2,12 @@ import importlib
 import streamlit as st
 from core.db import (
     alterar_senha_primeiro_acesso_db,
+    autenticar_usuario,
     init_db,
 )
 from core.estilos import (
     aplicar_estilos_customizados,
+    aplicar_fundo_login,
     renderizar_card_usuario,
 )
 
@@ -62,18 +64,97 @@ def modal_primeiro_acesso(username):
                     st.error("Erro ao atualizar a senha. Tente novamente.")
 
 
+def tela_login():
+    """Tela de Login Corporativa Vanguard com CSS 100% isolado (sem vazar para o ERP)."""
+    aplicar_fundo_login()
+
+    # CSS estritamente encapsulado na classe .vanguard-login-isolado
+    st.markdown(
+        """
+        <style>
+            .vanguard-login-isolado {
+                background-color: #FFFFFF !important;
+                padding: 32px !important;
+                border-radius: 12px !important;
+                border: 1px solid #CBD5E1 !important;
+                box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1) !important;
+            }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    _, col_centro, _ = st.columns([1, 1.2, 1])
+
+    with col_centro:
+        st.markdown("<br>", unsafe_allow_html=True)
+
+        st.markdown("<div class='vanguard-login-isolado'>", unsafe_allow_html=True)
+
+        st.markdown(
+            """
+            <div style="text-align: center; margin-bottom: 24px;">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 4px;">
+                    <svg width="38" height="38" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 4L36 32H27L20 18L13 32H4L20 4Z" fill="#3B82F6"/>
+                        <path d="M20 18L26 32H21L20 29L19 32H14L20 18Z" fill="#E2E8F0"/>
+                    </svg>
+                    <span style="font-size: 28px; font-weight: 800; color: #0F172A; letter-spacing: -1px; font-family: 'Segoe UI', sans-serif;">
+                        VANGUARD
+                    </span>
+                </div>
+                <div style="font-size: 10px; font-weight: 700; color: #2563EB; text-transform: uppercase; letter-spacing: 2px;">
+                    SISTEMAS DE GESTÃO
+                </div>
+                <div style="font-size: 12px; color: #64748B; margin-top: 6px; font-style: italic;">
+                    "Controle absoluto. Operação simples."
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+        with st.form("form_login_unificado"):
+            usuario_input = st.text_input("Usuário / Login")
+            senha_input = st.text_input("Senha", type="password")
+
+            st.markdown("<div style='margin-top: 10px;'></div>", unsafe_allow_html=True)
+            submit = st.form_submit_button("Entrar no Sistema", use_container_width=True, type="primary")
+
+            if submit:
+                if usuario_input and senha_input:
+                    res = autenticar_usuario(usuario_input, senha_input)
+
+                    if res == "BLOQUEADO":
+                        st.error("🚫 Acesso Suspenso. Entre em contato com o suporte financeiro.")
+                    elif res:
+                        st.session_state["usuario_logado"] = res
+                        st.session_state["modulo_ativo"] = "Boas-vindas"
+                        reexecutar()
+                    else:
+                        st.error("Usuário ou senha incorretos.")
+                else:
+                    st.warning("Preencha todos os campos.")
+
+        st.markdown("<div style='margin-top: 10px;'></div>", unsafe_allow_html=True)
+
+        col_b1, col_b2 = st.columns(2)
+        with col_b1:
+            if st.button("Solicitar Cadastro", key="btn_solic_cad", use_container_width=True):
+                st.info("Fale com o comercial: (11) 99999-8888.")
+        with col_b2:
+            if st.button("Esqueci a Senha", key="btn_esq_senha", use_container_width=True):
+                st.info("Solicite o reset ao administrador.")
+
+        st.markdown("</div>", unsafe_allow_html=True)
+
+
 def main():
     aplicar_estilos_customizados()
 
-    # Validação de acesso direto ao ERP principal
+    # Se NÃO estiver logado, exibe a tela de login unificada e segura
     if not st.session_state["usuario_logado"]:
-        st.warning("Acesso restrito. Por favor, utilize o aplicativo/tela de login para acessar o sistema.")
-        
-        # Link opcional para o usuário voltar para o login se acessar o app principal diretamente
-        st.markdown(
-            '<a href="https://vanguard-erp1.streamlit.app" target="_self"><button style="background-color:#2563EB; color:white; padding:10px 20px; border:none; border-radius:6px; font-weight:bold; cursor:pointer; margin-top:10px;">IR PARA A TELA DE LOGIN</button></a>',
-            unsafe_allow_html=True,
-        )
+        tela_login()
         return
 
     usuario = st.session_state["usuario_logado"]
