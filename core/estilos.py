@@ -1,17 +1,28 @@
 import streamlit as st
 
 def aplicar_estilos_customizados():
-    """CSS geral do sistema."""
+    """CSS geral do sistema e correção de inputs e fontes."""
     st.markdown(
         """
         <style>
-            /* Ajuste de container e ocultação de elementos padrão */
             .block-container { padding-top: 2rem !important; }
             header { visibility: hidden !important; }
             #MainMenu { visibility: hidden !important; }
             
-            /* Garante que o fundo da aplicação siga o padrão definido no config.toml */
-            .stApp { background-color: #F0F4F8 !important; }
+            /* Fundo geral do app */
+            .main { background-color: #F0F4F8 !important; }
+            
+            /* FORÇA O TEXTO DOS INPUTS PARA BRANCO OU PRETO LEGÍVEL */
+            /* Inputs de texto (Login, Modais, Formulários) */
+            input, textarea, select {
+                color: #0F172A !important;
+                background-color: #FFFFFF !important;
+            }
+            
+            /* Ajuste para textos digitados dentro dos campos */
+            .stTextInput input, .stNumberInput input, .stSelectbox select {
+                color: #0F172A !important;
+            }
         </style>
         """,
         unsafe_allow_html=True,
