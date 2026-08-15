@@ -1,17 +1,17 @@
 [theme]
-# Trava o sistema no modo escuro para evitar componentes brancos indesejados
-base = "dark"
+# Mude de "dark" para "light" para que o Streamlit use fontes escuras por padrão
+base = "light"
 
-# Cor dos botões principais e elementos de destaque (Azul Corporativo)
+# Cor dos botões principais
 primaryColor = "#2563EB"
 
-# Fundo geral da tela (Cinza e moderno)
-backgroundColor = "#F0F4F8" #D1D5DB" #FFFF00" #(amarelo)
+# Fundo geral (Mantido o cinza que você escolheu)
+backgroundColor = "#F0F4F8"
 
-# Fundo da barra lateral e dos campos de texto (Cinza-azulado discreto e elegante)
+# Fundo da barra lateral
 secondaryBackgroundColor = "#1E293B"
 
-# Cor padrão do texto (Branco suave para excelente legibilidade)
-textColor = "#F1F5F9"
+# Cor do texto (Preto/Cinza escuro para legibilidade no fundo claro)
+textColor = "#0F172A"
 
 font = "sans serif"
