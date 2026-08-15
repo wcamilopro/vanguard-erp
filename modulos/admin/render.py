@@ -2,32 +2,42 @@ import streamlit as st
 
 
 def render():
+    # Garante visibilidade total dos textos e métricas corrigindo o contraste do tema
+    st.markdown(
+        """
+        <style>
+            .main [data-testid="stMetricValue"], 
+            .main [data-testid="stMetricLabel"],
+            .main p, .main span, .main h1, .main h2, .main h3 {
+                color: #0F172A !important;
+            }
+            [data-testid="stMetricValue"] {
+                font-size: 24px !important;
+                font-weight: 700 !important;
+            }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
     # Cabeçalho limpo com espaçamento adequado
     st.markdown(
-    """
-    <style>
-        /* Força a cor dos textos principais e métricas para escuro na área administrativa */
-        .main [data-testid="stMetricValue"], 
-        .main [data-testid="stMetricLabel"],
-        .main p, .main span, .main h1, .main h2, .main h3 {
-            color: #0F172A !important;
-        }
-        /* Ajuste específico para os valores das métricas */
-        [data-testid="stMetricValue"] {
-            font-size: 24px !important;
-            font-weight: 700 !important;
-        }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
+        """
+        <div style="padding: 10px 0;">
+            <h2 style="color: #0F172A; margin: 0; font-family: 'Segoe UI', sans-serif;">⚙️ Central Administrativa & Licenciamento</h2>
+            <p style="color: #64748B; font-size: 14px; margin-top: 5px;">Gestão de assinaturas, faturas, limites e dados da conta.</p>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+    st.markdown("---")
 
     # DADOS DA SESSÃO
     empresa_nome = st.session_state.get(
         "empresa_nome", "Master - CMDTCSERVIÇOS LTDA"
     )
 
-    # RESUMO DO PLANO E LICENÇA (Com colunas estruturadas)
+    # RESUMO DO PLANO E LICENÇA
     c1, c2, c3, c4 = st.columns(4)
 
     with c1:
