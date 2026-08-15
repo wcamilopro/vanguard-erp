@@ -126,7 +126,7 @@ def render():
     with tab_usuarios:
         st.subheader("👥 Controle de Usuários e Privilégios")
         st.markdown(
-            "<p style='color: #475569; font-size: 13px;'>Cadastre novos colaboradores, configure permissões de acesso aos módulos e gerencie o reset de senhas.</p>",
+            "<p style='color: #475569; font-size: 13px;'>Cadastre novos colaboradores, configure permissões de acesso, realize reset de senhas, bloqueios e exclusões.</p>",
             unsafe_allow_html=True,
         )
 
@@ -171,7 +171,7 @@ def render():
         st.markdown("<br>", unsafe_allow_html=True)
         st.markdown("#### 📋 Usuários Ativos na Empresa")
 
-        # Exemplo simulado de listagem de usuários vinculados
+        # Exemplo simulado de listagem de usuários vinculados (incluindo status de bloqueio)
         usuarios_cadastrados = [
             {
                 "username": "admin",
@@ -188,29 +188,40 @@ def render():
             {
                 "username": "maria.rh",
                 "setor": "Recursos Humanos",
-                "status": "Aguardando Troca",
-                "primeiro_acesso": "Sim",
+                "status": "Bloqueado",
+                "primeiro_acesso": "Não",
             },
         ]
 
         for u in usuarios_cadastrados:
-            col_info1, col_info2, col_info3, col_acao = st.columns(
-                [1.5, 1, 1, 1.5]
+            col_info1, col_info2, col_info3, col_b1, col_b2, col_b3 = st.columns(
+                [1.5, 1, 1, 1, 1.1, 0.9]
             )
             col_info1.markdown(
                 f"👤 **{u['username']}**<br><span style='font-size:11px; color:#64748B;'>Setor: {u['setor']}</span>",
                 unsafe_allow_html=True,
             )
-            col_info2.markdown(f"Status: **{u['status']}**")
+            
+            if u['status'] == 'Bloqueado':
+                col_info2.markdown("Status: <span style='color: #DC2626; font-weight:600;'>Bloqueado</span>", unsafe_allow_html=True)
+            else:
+                col_info2.markdown("Status: <span style='color: #059669; font-weight:600;'>Ativo</span>", unsafe_allow_html=True)
+
             col_info3.markdown(f"Trocar Senha: **{u['primeiro_acesso']}**")
 
-            if col_acao.button(
-                f"🔄 Resetar Senha", key=f"reset_{u['username']}"
-            ):
-                # Aqui você chamará a função do banco para redefinir para "Trocar123" e setar primeiro_acesso = True
-                st.success(
-                    f"Senha de '{u['username']}' redefinida para 'Trocar123'. O usuário deverá trocá-la no próximo login."
-                )
+            # Ações rápidas
+            if col_b1.button("🔄 Reset", key=f"reset_{u['username']}"):
+                st.success(f"Senha de '{u['username']}' redefinida para 'Trocar123'.")
+
+            if u['status'] == 'Bloqueado':
+                if col_b2.button("🔓 Desbloq.", key=f"desb_{u['username']}"):
+                    st.success(f"Usuário '{u['username']}' desbloqueado com sucesso!")
+            else:
+                if col_b2.button("🔒 Bloquear", key=f"bloq_{u['username']}"):
+                    st.warning(f"Usuário '{u['username']}' foi bloqueado.")
+
+            if col_b3.button("🗑️ Excluir", key=f"exc_{u['username']}"):
+                st.error(f"Usuário '{u['username']}' excluído do sistema.")
 
             st.markdown(
                 "<hr style='margin: 6px 0; border: 0; border-top: 1px solid #CBD5E1;'>",
