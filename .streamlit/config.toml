@@ -1,17 +1,7 @@
 [theme]
-# Mude de "dark" para "light" para que o Streamlit use fontes escuras por padrão
 base = "light"
-
-# Cor dos botões principais
 primaryColor = "#2563EB"
-
-# Fundo geral (Mantido o cinza que você escolheu)
 backgroundColor = "#F0F4F8"
-
-# Fundo da barra lateral
-secondaryBackgroundColor = "#1E293B"
-
-# Cor do texto (Preto/Cinza escuro para legibilidade no fundo claro)
-textColor = "#0F172A"  #FFFFFF" #(branco)
-
+secondaryBackgroundColor = "#FFFFFF"
+textColor = "#0F172A"
 font = "sans serif"
