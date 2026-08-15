@@ -18,7 +18,6 @@ def aplicar_estilos_customizados():
                 border-right: 1px solid #1E293B !important;
             }
             
-            /* Textos e Labels dentro do Menu Lateral */
             section[data-testid="stSidebar"] p, 
             section[data-testid="stSidebar"] span, 
             section[data-testid="stSidebar"] div,
@@ -26,7 +25,6 @@ def aplicar_estilos_customizados():
                 color: #94A3B8 !important;
             }
 
-            /* Botões do Menu Lateral (Estilo Escuro Corporativo) */
             section[data-testid="stSidebar"] .stButton > button {
                 background-color: #1E293B !important;
                 color: #F8FAFC !important;
@@ -36,14 +34,12 @@ def aplicar_estilos_customizados():
                 width: 100% !important;
             }
 
-            /* Efeito ao passar o mouse nos botões do menu */
             section[data-testid="stSidebar"] .stButton > button:hover {
                 background-color: #334155 !important;
                 color: #FFFFFF !important;
                 border-color: #2563EB !important;
             }
 
-            /* Botão Ativo/Selecionado no Menu Lateral */
             section[data-testid="stSidebar"] .stButton > button[kind="primary"] {
                 background-color: #2563EB !important;
                 color: #FFFFFF !important;
@@ -51,13 +47,26 @@ def aplicar_estilos_customizados():
                 font-weight: 700 !important;
             }
 
-            /* 3. CARDS, MODAIS E INPUTS NA TELA PRINCIPAL (CLAROS E LEGÍVEIS) */
-            /* Inputs de texto e seleção */
-            .main input, .main textarea, .main select, 
-            div[data-baseweb="input"] {
+            /* 3. CORREÇÃO CRUCIAL DOS INPUTS (LOGIN E FORMULÁRIOS) */
+            /* Garante borda visível, fundo branco limpo e texto escuro nos inputs */
+            .stTextInput input, .stPasswordInput input, .stNumberInput input, .stSelectbox select {
                 background-color: #FFFFFF !important;
                 color: #0F172A !important;
-                border-color: #CBD5E1 !important;
+                border: 1px solid #CBD5E1 !important;
+                border-radius: 6px !important;
+            }
+
+            /* Contêiner interno do elemento do Streamlit para contornar o efeito "invisível" */
+            div[data-baseweb="input"] {
+                background-color: #FFFFFF !important;
+                border: 1px solid #CBD5E1 !important;
+                border-radius: 6px !important;
+            }
+
+            /* Foco no input (quando o usuário clica para digitar) */
+            div[data-baseweb="input"]:focus-within {
+                border-color: #2563EB !important;
+                box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2) !important;
             }
 
             /* Cards, Caixas de Diálogo (Modais) e Formulários */
