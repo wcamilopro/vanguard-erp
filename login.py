@@ -83,7 +83,7 @@ with col_centro:
                         st.info("Clique no botão abaixo para abrir o seu ERP principal:")
                         
                         # ⚠️ SUBSTITUA O LINK ABAIXO PELO LINK REAL DO SEU APP PRINCIPAL (app.py) NO STREAMLIT CLOUD
-                        url_do_erp = "https://SEU-APP-PRINCIPAL.streamlit.app"
+                        url_do_erp = "https://vanguard-erp.streamlit.app"
                         
                         st.markdown(
                             f'<a href="{url_do_erp}" target="_self"><button style="width:100%; background-color:#2563EB; color:white; padding:10px; border:none; border-radius:5px; font-weight:bold; cursor:pointer;">ACESSAR SISTEMA ERP</button></a>',
